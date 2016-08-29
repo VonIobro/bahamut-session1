@@ -1,0 +1,11 @@
+header {
+  background-color: green;
+  height: 100px;
+}
+body {
+  height: 500px;
+}
+footer {
+  background-color: blue;
+  height: 50px;
+}
