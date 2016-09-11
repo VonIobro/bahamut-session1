@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import {Accounts} from 'meteor/accounts-base';
+import React, {Component} from 'react';
+import {Navbar} from 'react-bootstrap';
 
 export default class LoginForm extends Component {
   composer() {
@@ -7,7 +9,6 @@ export default class LoginForm extends Component {
     };
   }
   handleInputChange(event) {
-    console.log(event.target.value);
     this.setState({name: event.target.value});
   }
   handleStartClick(event) {
@@ -17,14 +18,15 @@ export default class LoginForm extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <div className="Nav">
-          <form id="login-form">
-            <input onChange={(event) => this.handleInputChange(event)} placeholder="Name"></input>
-            <button onClick={(event) => this.handleStartClick(event)}>Start</button>
-          </form>
-        </div>
-      </div>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="/">Bahamut Attack!</a>
+          </Navbar.Brand>
+          <input onChange={(event) => this.handleInputChange(event)} placeholder="Name"></input>
+          <button onClick={(event) => this.handleStartClick(event)}>Start</button>
+        </Navbar.Header>
+      </Navbar>
     );
   }
 }
