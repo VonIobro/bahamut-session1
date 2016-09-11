@@ -27,7 +27,7 @@ export default class UserControls extends Component {
             eventKey={1.1}
             onClick={this.handleLogout}
           >
-            Logout
+            Quit Game
           </MenuItem>
         </NavDropdown>
       </Nav>
