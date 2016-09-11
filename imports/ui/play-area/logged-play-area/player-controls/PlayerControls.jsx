@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import {Row} from 'react-bootstrap';
+import './PlayerControls.scss';
 
 export default class PlayerControls extends Component {
   render() {
     const {user} = this.props;
     return (
-      <div>
+      <Row id="playercontrols">
         {user.username} Controls
-      </div>
+      </Row>
     );
   }
 }
