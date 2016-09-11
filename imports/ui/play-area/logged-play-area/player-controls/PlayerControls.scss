@@ -1,5 +1,22 @@
 #playercontrols {
+  padding-top: 30px;
+  padding-left: 20px;
   width: 600px;
   height: 150px;
   background-color: rgb(73, 73, 73);
+}
+
+.action-btn {
+  width: 100px;
+  height: 40px;
+  background-color: rgb(210, 40, 176);
+}
+
+.action-group {
+  margin: 40px 0 0 30px;
+}
+
+.dir-btn {
+  width: 60px;
+  height: 40px;
 }
