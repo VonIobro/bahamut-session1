@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Col, Row} from 'react-bootstrap';
 
-import LoginForm from './navbar/LoginForm';
+import NavbarMain from './navbar/NavbarMain';
 import PlayArea from './play-area/PlayArea';
 
 export default class App extends Component {
@@ -9,7 +9,7 @@ export default class App extends Component {
     return (
       <div>
         <Row>
-          <LoginForm />
+          <NavbarMain />
         </Row>
         <Row>
           <Col>
