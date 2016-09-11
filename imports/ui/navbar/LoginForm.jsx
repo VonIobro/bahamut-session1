@@ -6,21 +6,22 @@ export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      username: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleStartClick = this.handleStartClick.bind(this);
   }
   handleInputChange(event) {
-    console.log(event.target.value);
-    this.setState({name: event.target.value});
+    this.setState({username: event.target.value});
   }
   handleStartClick(event) {
     event.preventDefault();
-    const {name} = this.state;
-    Accounts.createUser({username: name, password: 'password'});
+    const {username} = this.state;
+    Accounts.createUser({username, password: 'password'});
+    this.setState({username: ''});
   }
   render() {
+    const {username} = this.state;
     return (
       <Navbar>
         <Navbar.Header>
@@ -32,7 +33,8 @@ export default class LoginForm extends Component {
           <Navbar.Form pullRight>
             <FormControl
               onChange={this.handleInputChange}
-              placeholder="Name">
+              placeholder="Name Your Tank"
+              value={username}>
             </FormControl>
             {' '}
             <Button
