@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {Navbar} from 'react-bootstrap';
 import LoginForm from './LoginForm';
+import UserControls from './UserControls';
 
 export default class NavbarMain extends Component {
   render() {
+    const {user} = this.props;
     return (
       <Navbar>
         <Navbar.Header>
@@ -12,11 +14,13 @@ export default class NavbarMain extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Navbar.Collapse>
-          <Navbar.Form pullRight>
-            <LoginForm/>
-          </Navbar.Form>
+          {user ? <UserControls user={user}/> : <LoginForm/>}
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
+
+NavbarMain.propTypes = {
+  user: React.PropTypes.object,
+};

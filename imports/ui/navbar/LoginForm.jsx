@@ -1,6 +1,6 @@
 import {Accounts} from 'meteor/accounts-base';
 import React, {Component} from 'react';
-import {Button, FormControl} from 'react-bootstrap';
+import {Button, Navbar, FormControl} from 'react-bootstrap';
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class LoginForm extends Component {
   render() {
     const {username} = this.state;
     return (
-      <div>
+      <Navbar.Form pullRight>
         <FormControl
           onChange={this.handleInputChange}
           placeholder="Name Your Tank"
@@ -31,9 +31,10 @@ export default class LoginForm extends Component {
         </FormControl>
         {' '}
         <Button
+          disabled={username === ''}
           onClick={this.handleStartClick}>Start!
         </Button>
-      </div>
+      </Navbar.Form>
     );
   }
 }

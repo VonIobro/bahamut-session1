@@ -12,3 +12,7 @@ export default class PlayArea extends Component {
     );
   }
 }
+
+PlayArea.propTypes = {
+  user: React.PropTypes.object,
+};
