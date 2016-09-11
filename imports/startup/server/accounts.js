@@ -18,7 +18,7 @@ var randomDeg = () => {
 
 Accounts.onCreateUser((option, user) => {
   user.tank = {
-    position: {X: randomX(), Y: randomY()},
+    position: {x: randomX(), y: randomY()},
     rotation: randomDeg(),
   };
   return user;
