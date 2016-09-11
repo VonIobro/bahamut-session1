@@ -7,7 +7,7 @@ export default class PlayArea extends Component {
     const {user} = this.props;
     return (
       <div>
-        {user ? <LoggedPlayArea/> : <UnloggedPlayArea />}
+        {user ? <LoggedPlayArea user={user} /> : <UnloggedPlayArea />}
       </div>
     );
   }
