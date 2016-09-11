@@ -6,9 +6,10 @@ import LoggedPlayArea from './logged-play-area/LoggedPlayArea';
 
 class PlayArea extends Component {
   render() {
+    const {user} = this.props;
     return (
       <div>
-        {Meteor.user() ? <LoggedPlayArea/> : <UnloggedPlayArea />}
+        {user ? <LoggedPlayArea/> : <UnloggedPlayArea />}
       </div>
     );
   }
