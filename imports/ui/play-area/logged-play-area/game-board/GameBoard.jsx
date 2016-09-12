@@ -5,10 +5,15 @@ import PlayerAvatar from './player-avatar/PlayerAvatar';
 
 export default class GameBoard extends Component {
   render() {
+    const {user} = this.props;
     return (
       <Row id="gameboard">
-        <PlayerAvatar />
+        <PlayerAvatar user={user}/>
       </Row>
     );
   }
 }
+
+GameBoard.propTypes = {
+  user: React.PropTypes.object,
+};

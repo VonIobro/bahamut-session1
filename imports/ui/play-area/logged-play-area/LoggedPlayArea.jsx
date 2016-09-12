@@ -7,7 +7,7 @@ export default class LoggedPlayArea extends Component {
     const {user} = this.props;
     return (
       <div className="container">
-        <GameBoard />
+        <GameBoard user={user}/>
         <PlayerControls user={user}/>
       </div>
     );

@@ -5,16 +5,19 @@ import './PlayerAvatar.scss';
 
 class PlayerAvatar extends Component {
   render() {
-    const {tank} = this.props;
+    const {tank, user} = this.props;
     const style = {
       top: `${tank.position.x}px`,
       left: `${tank.position.y}px`,
     };
     return (
-      <div className="player1" style={style}>Hello</div>
+      <div className="player1" style={style}>{user.username}</div>
     );
   }
 }
+PlayerAvatar.propTypes = {
+  user: React.PropTypes.object,
+};
 
 export default composeWithTracker((props, onData) => {
   const subscription = Meteor.subscribe('userData');
