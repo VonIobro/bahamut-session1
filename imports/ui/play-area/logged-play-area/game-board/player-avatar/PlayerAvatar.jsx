@@ -4,20 +4,32 @@ import {composeWithTracker} from 'react-komposer';
 import './PlayerAvatar.scss';
 
 class PlayerAvatar extends Component {
-  render() {
+  playerNodes() {
     const {players} = this.props;
-    const playerNodes = players.map(player => {
+    return players.map(player => {
+      const playerType = () => {
+        if (Meteor.userId() === player._id) {
+          return 'player player1';
+        }
+        return 'player enemy';
+      };
       const style = {
         top: `${player.tank.position.x}px`,
         left: `${player.tank.position.y}px`,
       };
       return (
-        <div className="player1" style={style}>{player.username}</div>
+        <div className={playerType()}
+          key={player._id}
+          style={style}>
+          {player.username}
+        </div>
       );
     });
+  }
+  render() {
     return (
       <div>
-        {playerNodes}
+        {this.playerNodes()}
       </div>
     );
   }
