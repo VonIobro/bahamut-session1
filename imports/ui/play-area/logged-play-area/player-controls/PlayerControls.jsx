@@ -14,19 +14,22 @@ export default class PlayerControls extends Component {
     this.handleUpClick = this.handleUpClick.bind(this);
   }
   handleDownClick() {
-    console.log('down');
+    const {user} = this.props;
+    Meteor.call('tank.moveDown', user._id);
   }
   handleFireClick() {
     console.log('fire');
   }
   handleLeftClick() {
-    console.log('left');
+    const {user} = this.props;
+    Meteor.call('tank.moveLeft', user._id);
   }
   handlePushClick() {
-    console.log('push');
+    console.log('push');Up
   }
   handleRightClick() {
-    console.log('right');
+    const {user} = this.props;
+    Meteor.call('tank.moveRight', user._id);
   }
   handleUpClick() {
     const {user} = this.props;
