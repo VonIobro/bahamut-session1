@@ -4,11 +4,16 @@ import PlayerControls from './player-controls/PlayerControls';
 
 export default class LoggedPlayArea extends Component {
   render() {
+    const {user} = this.props;
     return (
       <div className="container">
         <GameBoard />
-        <PlayerControls />
+        <PlayerControls user={user}/>
       </div>
     );
   }
 }
+
+LoggedPlayArea.propTypes = {
+  user: React.PropTypes.object,
+};

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Meteor} from 'meteor/meteor';
 import {Button, ButtonGroup, Col, Row} from 'react-bootstrap';
 import './PlayerControls.scss';
 
@@ -28,10 +29,10 @@ export default class PlayerControls extends Component {
     console.log('right');
   }
   handleUpClick() {
-    console.log('up');
+    const {user} = this.props;
+    Meteor.call('tank.moveUp', user._id);
   }
   render() {
-    // const {user} = this.props;
     return (
       <Row id="playercontrols">
         <Col sm={6} id="direction">
@@ -69,6 +70,6 @@ export default class PlayerControls extends Component {
   }
 }
 
-// PlayerControls.propTypes = {
-//   user: React.PropTypes.object,
-// };
+PlayerControls.propTypes = {
+  user: React.PropTypes.object,
+};
