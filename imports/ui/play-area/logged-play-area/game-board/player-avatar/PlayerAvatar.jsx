@@ -7,31 +7,11 @@ class PlayerAvatar extends Component {
   playerNodes() {
     const {players} = this.props;
     const nodes = players.map(player => {
-      // tank type (player or enemy)
-      let tankClass = 'tank';
-      if (Meteor.userId() === player._id) {
-        tankClass += ' player1';
-      } else {
-        tankClass += ' enemy';
-      }
-
-      // tank rotation
-      let nextRotation = player.tank.rotation;
-      let prevRotation = player.tank.prevRotation;
-      let tankAnim = `tank${prevRotation}-${nextRotation}`;
-
-      // tank style
-      let tankStyle = {
-        left: `${player.tank.position.y}px`,
-        top: `${player.tank.position.x}px`,
-        transform: `rotate(${player.tank.rotation}deg)`,
-        animation: `${tankAnim} 0.6s linear 0s`,
-      };
       return (
-        <div className={tankClass}
+        <TankNodes
           key={player._id}
-          style={tankStyle}>
-        </div>
+          player={player}
+        />
       );
     });
     return nodes;
@@ -40,6 +20,51 @@ class PlayerAvatar extends Component {
     return (
       <div>
         {this.playerNodes()}
+      </div>
+    );
+  }
+}
+
+class TankNodes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      prevRotation: null,
+      weapon: null,
+    };
+  }
+  tankClass() {
+    const {player} = this.props;
+    // tank type (player or enemy)
+    let tankClass = 'tank';
+    if (Meteor.userId() === player._id) {
+      tankClass += ' player1';
+    } else {
+      tankClass += ' enemy';
+    }
+    return tankClass;
+  }
+  tankStyle() {
+    const {player} = this.props;
+    // const {prevRotation} = this.state;
+    // tank rotation
+    let nextRotation = player.tank.rotation;
+    let prevRotation = player.tank.prevRotation;
+    let tankAnim = `tank${prevRotation}-${nextRotation}`;
+
+    // tank style
+    let tankStyle = {
+      left: `${player.tank.position.y}px`,
+      top: `${player.tank.position.x}px`,
+      transform: `rotate(${player.tank.rotation}deg)`,
+      animation: `${tankAnim} 0.6s linear 0s`,
+    };
+    return tankStyle;
+  }
+  render() {
+    return (
+      <div className={this.tankClass()}
+        style={this.tankStyle()}>
       </div>
     );
   }
