@@ -9,14 +9,14 @@ class PlayerAvatar extends Component {
     const nodes = players.map(player => {
       const playerClass = () => {
         let classes = '';
-        // type of player
+        // tank type (player or enemy)
         if (Meteor.userId() === player._id) {
           classes = classes + ' player player1';
         } else {
           classes = classes + ' player enemy';
         }
         // tank orientation
-        classes = classes + ' tank-up';
+        classes = classes + ' ' + player.tank.rotation;
         return classes;
       };
       const tankStyle = {
