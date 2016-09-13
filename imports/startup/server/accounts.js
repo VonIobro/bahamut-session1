@@ -4,9 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 // dimensions of playboard
 const boardX = [ 0, 600 ];
 const boardY = [ 0, 450 ];
-const rotations = [
-  'tank-up', 'tank-down', 'tank-left', 'tank-right'
-];
+const rotations = [ 0, 90, 180, 270 ];
 
 // Math.floor(Math.random() * ((y-x)+1) + x);
 // http://goo.gl/OfvsPH <- about random num gen

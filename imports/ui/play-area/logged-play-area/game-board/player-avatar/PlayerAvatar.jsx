@@ -15,13 +15,12 @@ class PlayerAvatar extends Component {
         } else {
           classes = classes + ' player enemy';
         }
-        // tank orientation
-        classes = classes + ' ' + player.tank.rotation;
         return classes;
       };
       const tankStyle = {
         top: `${player.tank.position.x}px`,
         left: `${player.tank.position.y}px`,
+        transform: `rotate(${player.tank.rotation}deg)`,
       };
       return (
         <div className={playerClass()}

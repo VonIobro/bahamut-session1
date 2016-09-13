@@ -4,13 +4,13 @@ import {check} from 'meteor/check';
 Meteor.methods({
   'tank.moveFwd'(userId, rotation) {
     check(userId, String);
-    check(rotation, String);
+    check(rotation, Number);
     let translation = [];
-    if (rotation === 'tank-up') {
+    if (rotation === 0) {
       translation = [ -10, 0 ];
-    } else if (rotation === 'tank-right') {
+    } else if (rotation === 90) {
       translation = [ 0, 10 ];
-    } else if (rotation === 'tank-down') {
+    } else if (rotation === 180) {
       translation = [ 10, 0 ];
     } else {
       translation = [ 0, -10 ];
@@ -25,13 +25,13 @@ Meteor.methods({
   },
   'tank.moveBack'(userId, rotation) {
     check(userId, String);
-    check(rotation, String);
+    check(rotation, Number);
     let translation = [];
-    if (rotation === 'tank-up') {
+    if (rotation === 0) {
       translation = [ 10, 0 ];
-    } else if (rotation === 'tank-right') {
+    } else if (rotation === 90) {
       translation = [ 0, -10 ];
-    } else if (rotation === 'tank-down') {
+    } else if (rotation === 180) {
       translation = [ -10, 0 ];
     } else {
       translation = [ 0, 10 ];
@@ -46,38 +46,32 @@ Meteor.methods({
   },
   'tank.rotateLeft'(userId, prevRotation) {
     check(userId, String);
-    check(prevRotation, String);
-    let newRotation;
-    if (prevRotation === 'tank-up') {
-      newRotation = 'tank-left';
-    } else if (prevRotation === 'tank-left') {
-      newRotation = 'tank-down';
-    } else if (prevRotation === 'tank-down') {
-      newRotation = 'tank-right';
+    check(prevRotation, Number);
+    let rotate;
+    // when rotating past zero
+    if (prevRotation === 0) {
+      rotate = 270;
     } else {
-      newRotation = 'tank-up';
+      rotate = -90;
     }
     return Meteor.users.update(
       {_id: userId},
-      {$set: {'tank.rotation': newRotation}}
+      {$inc: {'tank.rotation': rotate}}
     );
   },
   'tank.rotateRight'(userId, prevRotation) {
     check(userId, String);
-    check(prevRotation, String);
-    let newRotation;
-    if (prevRotation === 'tank-up') {
-      newRotation = 'tank-right';
-    } else if (prevRotation === 'tank-right') {
-      newRotation = 'tank-down';
-    } else if (prevRotation === 'tank-down') {
-      newRotation = 'tank-left';
+    check(prevRotation, Number);
+    let rotate;
+    // when rotating past zero
+    if (prevRotation === 270) {
+      rotate = -270;
     } else {
-      newRotation = 'tank-up';
+      rotate = 90;
     }
     return Meteor.users.update(
       {_id: userId},
-      {$set: {'tank.rotation': newRotation}}
+      {$inc: {'tank.rotation': rotate}}
     );
   },
 });
