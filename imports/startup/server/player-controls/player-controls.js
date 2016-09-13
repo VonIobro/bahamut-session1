@@ -54,10 +54,7 @@ Meteor.methods({
     }
     return Meteor.users.update(
       {_id: userId},
-      {
-        $inc: {'tank.rotation': rotate},
-        $set: {'tank.prevRotation': prevRotation}
-      }
+      {$inc: {'tank.rotation': rotate}}
     );
   },
   'tank.rotateRight'(userId, prevRotation) {
@@ -70,10 +67,7 @@ Meteor.methods({
     }
     return Meteor.users.update(
       {_id: userId},
-      {
-        $inc: {'tank.rotation': rotate},
-        $set: {'tank.prevRotation': prevRotation}
-      }
+      {$inc: {'tank.rotation': rotate}}
     );
   },
 });
