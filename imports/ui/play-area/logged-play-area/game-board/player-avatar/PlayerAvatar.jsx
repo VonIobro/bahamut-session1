@@ -7,25 +7,23 @@ class PlayerAvatar extends Component {
   playerNodes() {
     const {players} = this.props;
     const nodes = players.map(player => {
-      const playerClass = () => {
-        let classes = '';
-        // tank type (player or enemy)
-        if (Meteor.userId() === player._id) {
-          classes = classes + ' player player1';
-        } else {
-          classes = classes + ' player enemy';
-        }
-        return classes;
-      };
-      const tankStyle = {
+      let classes = '';
+      let tankStyles = {};
+      // tank type (player or enemy)
+      if (Meteor.userId() === player._id) {
+        classes += ' tank player1';
+      } else {
+        classes += ' tank enemy';
+      }
+      tankStyles = {
         top: `${player.tank.position.x}px`,
         left: `${player.tank.position.y}px`,
         transform: `rotate(${player.tank.rotation}deg)`,
       };
       return (
-        <div className={playerClass()}
+        <div className={classes}
           key={player._id}
-          style={tankStyle}>
+          style={tankStyles}>
         </div>
       );
     });
