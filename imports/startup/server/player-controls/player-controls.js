@@ -47,12 +47,10 @@ Meteor.methods({
   'tank.rotateLeft'(userId, prevRotation) {
     check(userId, String);
     check(prevRotation, Number);
-    let rotate;
+    let rotate = -90;
     // when rotating past zero
     if (prevRotation === 0) {
       rotate = 270;
-    } else {
-      rotate = -90;
     }
     return Meteor.users.update(
       {_id: userId},
@@ -62,12 +60,10 @@ Meteor.methods({
   'tank.rotateRight'(userId, prevRotation) {
     check(userId, String);
     check(prevRotation, Number);
-    let rotate;
+    let rotate = 90;
     // when rotating past zero
     if (prevRotation === 270) {
       rotate = -270;
-    } else {
-      rotate = 90;
     }
     return Meteor.users.update(
       {_id: userId},
