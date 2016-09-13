@@ -22,14 +22,14 @@ export default class PlayerControls extends Component {
   }
   handleLeftClick() {
     const {user} = this.props;
-    Meteor.call('tank.moveLeft', user._id);
+    Meteor.call('tank.rotateLeft', user._id, user.tank.rotation);
   }
   handlePushClick() {
-    console.log('push');Up
+    console.log('push');
   }
   handleRightClick() {
     const {user} = this.props;
-    Meteor.call('tank.moveRight', user._id);
+    Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
   }
   handleUpClick() {
     const {user} = this.props;
