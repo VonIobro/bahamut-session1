@@ -6,25 +6,31 @@ import './PlayerAvatar.scss';
 class PlayerAvatar extends Component {
   playerNodes() {
     const {players} = this.props;
-    return players.map(player => {
-      const playerType = () => {
+    const nodes = players.map(player => {
+      const playerClass = () => {
+        let classes = '';
+        // type of player
         if (Meteor.userId() === player._id) {
-          return 'player player1';
+          classes = classes + ' player player1';
+        } else {
+          classes = classes + ' player enemy';
         }
-        return 'player enemy';
+        // tank orientation
+        classes = classes + ' tank-up';
+        return classes;
       };
-      const style = {
+      const tankStyle = {
         top: `${player.tank.position.x}px`,
         left: `${player.tank.position.y}px`,
       };
       return (
-        <div className={playerType()}
+        <div className={playerClass()}
           key={player._id}
-          style={style}>
-          {player.username}
+          style={tankStyle}>
         </div>
       );
     });
+    return nodes;
   }
   render() {
     return (
