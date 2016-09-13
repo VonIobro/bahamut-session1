@@ -2,18 +2,46 @@ import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 
 Meteor.methods({
-  'tank.moveUp'(userId) {
+  'tank.moveFwd'(userId, rotation) {
     check(userId, String);
+    check(rotation, String);
+    let translation = [];
+    if (rotation === 'tank-up') {
+      translation = [ -10, 0 ];
+    } else if (rotation === 'tank-right') {
+      translation = [ 0, 10 ];
+    } else if (rotation === 'tank-down') {
+      translation = [ 10, 0 ];
+    } else {
+      translation = [ 0, -10 ];
+    }
     Meteor.users.update(
       {_id: userId},
-      {$inc: {'tank.position.x': -10}}
+      {$inc: {
+        'tank.position.x': translation[0],
+        'tank.position.y': translation[1],
+      }}
     );
   },
-  'tank.moveDown'(userId) {
+  'tank.moveBack'(userId, rotation) {
     check(userId, String);
+    check(rotation, String);
+    let translation = [];
+    if (rotation === 'tank-up') {
+      translation = [ 10, 0 ];
+    } else if (rotation === 'tank-right') {
+      translation = [ 0, -10 ];
+    } else if (rotation === 'tank-down') {
+      translation = [ -10, 0 ];
+    } else {
+      translation = [ 0, 10 ];
+    }
     Meteor.users.update(
       {_id: userId},
-      {$inc: {'tank.position.x': 10}}
+      {$inc: {
+        'tank.position.x': translation[0],
+        'tank.position.y': translation[1],
+      }}
     );
   },
   'tank.rotateLeft'(userId, prevRotation) {

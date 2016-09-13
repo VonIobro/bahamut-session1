@@ -6,19 +6,23 @@ import './PlayerControls.scss';
 export default class PlayerControls extends Component {
   constructor(props) {
     super(props);
-    this.handleDownClick = this.handleDownClick.bind(this);
+    this.handleBackClick = this.handleBackClick.bind(this);
     this.handleFireClick = this.handleFireClick.bind(this);
+    this.handleFwdClick = this.handleFwdClick.bind(this);
     this.handleLeftClick = this.handleLeftClick.bind(this);
     this.handlePushClick = this.handlePushClick.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
-    this.handleUpClick = this.handleUpClick.bind(this);
   }
-  handleDownClick() {
+  handleBackClick() {
     const {user} = this.props;
-    Meteor.call('tank.moveDown', user._id);
+    Meteor.call('tank.moveBack', user._id, user.tank.rotation);
   }
   handleFireClick() {
     console.log('fire');
+  }
+  handleFwdClick() {
+    const {user} = this.props;
+    Meteor.call('tank.moveFwd', user._id, user.tank.rotation);
   }
   handleLeftClick() {
     const {user} = this.props;
@@ -31,10 +35,6 @@ export default class PlayerControls extends Component {
     const {user} = this.props;
     Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
   }
-  handleUpClick() {
-    const {user} = this.props;
-    Meteor.call('tank.moveUp', user._id);
-  }
   render() {
     return (
       <Row id="playercontrols">
@@ -42,7 +42,7 @@ export default class PlayerControls extends Component {
           <Row>
             <Col sm={4} smOffset={4}>
               <Button className="dir-btn"
-                onClick={this.handleUpClick}>up</Button>
+                onClick={this.handleFwdClick}>FWD</Button>
             </Col>
           </Row>
           <Row>
@@ -52,7 +52,7 @@ export default class PlayerControls extends Component {
             </Col>
             <Col sm={4}>
               <Button className="dir-btn"
-                onClick={this.handleDownClick}>down</Button>
+                onClick={this.handleBackClick}>BACK</Button>
             </Col>
             <Col sm={4}>
               <Button className="dir-btn"
