@@ -8,10 +8,10 @@ class PlayerAvatar extends Component {
     const {players} = this.props;
     const nodes = players.map(player => {
       return (
-        <TankNodes
-          key={player._id}
-          player={player}
-        />
+        <div key={player._id}>
+          <Tank player={player} />
+          <Weapon player={player} />
+        </div>
       );
     });
     return nodes;
@@ -25,14 +25,7 @@ class PlayerAvatar extends Component {
   }
 }
 
-class TankNodes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prevRotation: null,
-      weapon: null,
-    };
-  }
+class Tank extends Component {
   tankClass() {
     const {player} = this.props;
     // tank type (player or enemy)
@@ -46,7 +39,6 @@ class TankNodes extends Component {
   }
   tankStyle() {
     const {player} = this.props;
-    // const {prevRotation} = this.state;
     // tank rotation
     let nextRotation = player.tank.rotation;
     let prevRotation = player.tank.prevRotation;
@@ -67,6 +59,35 @@ class TankNodes extends Component {
         style={this.tankStyle()}>
       </div>
     );
+  }
+}
+
+class Weapon extends Component {
+  weaponClass() {
+    const {player} = this.props;
+    // weapon type
+    let weaponClass = '';
+    return weaponClass;
+  }
+  weaponStyle() {
+    const {player} = this.props;
+    // weapon style
+    let weaponStyle = {
+      left: `${player.tank.position.y}px`,
+      top: `${player.tank.position.x}px`,
+      // transform: `rotate(${player.tank.rotation}deg)`,
+      // animation: `${tankAnim} 0.6s linear 0s`,
+    };
+    return weaponStyle;
+  }
+  render() {
+    const {player} = this.props;
+    return (
+      <div className={this.weaponClass()}
+        style={this.weaponStyle()}>
+        {player.username} weapon
+      </div>
+    )
   }
 }
 
