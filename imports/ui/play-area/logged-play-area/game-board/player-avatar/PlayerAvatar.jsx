@@ -78,10 +78,16 @@ class Tank extends Component {
 }
 
 class Weapon extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      weaponUsed: false,
+    };
+  }
   weaponClass() {
     const {player} = this.props;
     // weapon type
-    let weaponClass = '';
+    let weaponClass = 'weapon';
     return weaponClass;
   }
   weaponStyle() {
@@ -97,11 +103,16 @@ class Weapon extends Component {
   }
   render() {
     const {player} = this.props;
+    if (player.tank.weaponReady === true) {
+      return (
+        <div className={this.weaponClass()}
+          style={this.weaponStyle()}>
+          BOOM!
+        </div>
+      );
+    }
     return (
-      <div className={this.weaponClass()}
-        style={this.weaponStyle()}>
-        {player.username} weapon
-      </div>
+      <div></div>
     );
   }
 }

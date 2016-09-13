@@ -17,7 +17,8 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.moveBack', user._id, user.tank.rotation);
   }
   handleFireClick() {
-    console.log('fire');
+    const {user} = this.props;
+    Meteor.call('tank.fireWeapon', user._id, true);
   }
   handleFwdClick() {
     const {user} = this.props;

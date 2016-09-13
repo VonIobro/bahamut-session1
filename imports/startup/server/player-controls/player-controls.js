@@ -70,4 +70,12 @@ Meteor.methods({
       {$inc: {'tank.rotation': rotate}}
     );
   },
+  'tank.fireWeapon'(userId, weaponState) {
+    check(userId, String);
+    check(weaponState, Boolean);
+    return Meteor.users.update(
+      {_id: userId},
+      {$set: {'tank.weaponReady': weaponState}}
+    );
+  }
 });
