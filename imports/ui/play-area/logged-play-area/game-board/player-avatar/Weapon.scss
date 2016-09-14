@@ -1,16 +1,32 @@
-@keyframes boom {
-  0% {
-    opacity: 0;
-    // transform: translate3d(0,0,0);
-  }
-  80% {
-    opacity: 1;
-  }
+@keyframes boom0 {
+  0% { opacity: 0; }
   100% {
-    opacity: 0;
-    // transform: translate3d(0,-30px,0);
+    opacity: 1;
+    transform: translate3d(0,-60px,0);
   }
 }
+@keyframes boom90 {
+  0% { opacity: 0; }
+  100% {
+    opacity: 1;
+    transform: translate3d(60px,0,0);
+  }
+}
+@keyframes boom180 {
+  0% { opacity: 0; }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,60px,0);
+  }
+}
+@keyframes boom270 {
+  0% { opacity: 0; }
+  100% {
+    opacity: 1;
+    transform: translate3d(-60px,0,0);
+  }
+}
+
 .explosion-enter {
   background-color: red;
   height: 20px;

@@ -28,10 +28,11 @@ export default class Weapon extends Component {
     return weaponClass;
   }
   renderWeapon() {
+    const {player} = this.props;
     const {shouldFireWeapon} = this.state;
+    const rotation = player.tank.rotation;
     const style = {
-      // transform: 'translate3d(0,-30px,0)',
-      animation: 'boom 1s ease-in',
+      animation: `boom${rotation} 1s ease-in`,
     };
     if (shouldFireWeapon === true) {
       return <span style={style}></span>;
