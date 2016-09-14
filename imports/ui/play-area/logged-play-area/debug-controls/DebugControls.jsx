@@ -30,12 +30,11 @@ export default class PlayerControls extends Component {
 }
 
 const Debug = ({user}) => {
-  const weaponState = user.tank.weaponReady;
   return (
     <ul id="debug-panel">
       <li>x: {user.tank.position.x}</li>
       <li>y: {user.tank.position.y}</li>
-      <li>fired: {weaponState ? weaponState.toString() : '(new player)'}</li>
+      <li>fired: {user.tank.weaponCount}</li>
     </ul>
   );
 };

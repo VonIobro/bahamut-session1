@@ -6,12 +6,20 @@ export default class Weapon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weaponUsed: false,
+      weaponCount: null,
+      shouldFireWeapon: false,
     };
-    this.handleRemove = this.handleRemove.bind(this);
   }
-  handleRemove() {
-    this.setState({weaponUsed: false});
+  componentWillReceiveProps(nextProps) {
+    const {player} = this.props;
+    const curWeaponCount = nextProps.player.tank.weaponCount;
+    const prevWeaponCount = player.tank.weaponCount;
+    // only update state if props changed
+    if (curWeaponCount > prevWeaponCount) {
+      this.setState({shouldFireWeapon: true});
+    } else {
+      this.setState({shouldFireWeapon: false});
+    }
   }
   weaponClass() {
     const {player} = this.props;
@@ -19,32 +27,21 @@ export default class Weapon extends Component {
     let weaponClass = 'explosion';
     return weaponClass;
   }
-  weaponStyle() {
-    const {player} = this.props;
-    // weapon style
-    let weaponStyle = {
-      position: 'absolute',
-      // transform: `rotate(90deg)`,
-    };
-    return weaponStyle;
-  }
   renderWeapon() {
-    const {player} = this.props;
-    if (player.tank.weaponReady === true) {
-      return (
-        <span
-          onClick={() => this.handleRemove()}
-          style={this.weaponStyle()}>
-          BOOM!
-        </span>
-      );
+    const {shouldFireWeapon} = this.state;
+    const style = {
+      // transform: 'translate3d(0,-30px,0)',
+      animation: 'boom 1s ease-in',
+    };
+    if (shouldFireWeapon === true) {
+      return <span style={style}></span>;
     }
   }
   render() {
     return (
       <ReactCSSTransitionGroup
         transitionName={this.weaponClass()}
-        transitionEnterTimeout={500}
+        transitionEnterTimeout={1000}
         transitionLeaveTimeout={500}>
         {this.renderWeapon()}
       </ReactCSSTransitionGroup>

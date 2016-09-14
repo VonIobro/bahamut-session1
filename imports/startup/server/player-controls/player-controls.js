@@ -75,7 +75,7 @@ Meteor.methods({
     check(weaponState, Boolean);
     return Meteor.users.update(
       {_id: userId},
-      {$set: {'tank.weaponReady': weaponState}}
+      {$inc: {'tank.weaponCount': 1}}
     );
   },
 });
