@@ -4,22 +4,33 @@ import {composeWithTracker} from 'react-komposer';
 import './PlayerAvatar.scss';
 
 class PlayerAvatar extends Component {
-  playerNodes() {
+  tankNodes() {
     const {players} = this.props;
-    const nodes = players.map(player => {
+    return players.map(player => {
       return (
-        <div key={player._id}>
-          <Tank player={player} />
-          <Weapon player={player} />
-        </div>
+        <Tank
+          key={`tnk-${player._id}`}
+          player={player}
+        />
       );
     });
-    return nodes;
+  }
+  weaponNodes() {
+    const {players} = this.props;
+    return players.map(player => {
+      return (
+        <Weapon
+          key={`wpn-${player._id}`}
+          player={player}
+        />
+      );
+    });
   }
   render() {
     return (
       <div>
-        {this.playerNodes()}
+        {this.tankNodes()}
+        {this.weaponNodes()}
       </div>
     );
   }
