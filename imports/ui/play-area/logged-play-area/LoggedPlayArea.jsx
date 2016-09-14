@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GameBoard from './game-board/GameBoard';
 import PlayerControls from './player-controls/PlayerControls';
+import DebugControls from './debug-controls/DebugControls';
 
 export default class LoggedPlayArea extends Component {
   render() {
@@ -9,6 +10,7 @@ export default class LoggedPlayArea extends Component {
       <div className="container">
         <GameBoard user={user}/>
         <PlayerControls user={user}/>
+        <DebugControls user={user}/>
       </div>
     );
   }
