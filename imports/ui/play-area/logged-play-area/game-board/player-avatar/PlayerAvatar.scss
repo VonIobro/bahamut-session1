@@ -32,7 +32,7 @@
 }
 
 .tank {
-  position: relative;
+  position: absolute;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 20px solid;
@@ -41,7 +41,7 @@
 }
 
 .weapon {
-  position: relative;
+  position: absolute;
 }
 
 .player1 {
