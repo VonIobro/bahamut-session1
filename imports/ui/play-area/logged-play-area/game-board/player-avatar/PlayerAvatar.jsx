@@ -6,34 +6,29 @@ import Weapon from './Weapon';
 import './PlayerAvatar.scss';
 
 class PlayerAvatar extends Component {
-  tankNodes() {
+  avatarNodes() {
+    // for general position
     const {players} = this.props;
     return players.map(player => {
+      const styles = {
+        position: 'absolute',
+        left: `${player.tank.position.y}px`,
+        top: `${player.tank.position.x}px`,
+      };
       return (
-        <Tank
-          key={`tnk-${player._id}`}
-          player={player}
-        />
-      );
-    });
-  }
-  weaponNodes() {
-    const {players} = this.props;
-    return players.map(player => {
-      return (
-        <Weapon
-          key={`wpn-${player._id}`}
-          player={player}
-        />
+        <span key={player._id}
+          style={styles}>
+          <Tank player={player}/>
+          <Weapon player={player}/>
+        </span>
       );
     });
   }
   render() {
     return (
-      <div>
-        {this.tankNodes()}
-        {this.weaponNodes()}
-      </div>
+      <span id='avatar-collection'>
+        {this.avatarNodes()}
+      </span>
     );
   }
 }

@@ -24,10 +24,7 @@ export default class Weapon extends Component {
     // weapon style
     let weaponStyle = {
       position: 'absolute',
-      left: `${player.tank.position.y}px`,
-      top: `${player.tank.position.x}px`,
-      // transform: `rotate(${player.tank.rotation}deg)`,
-      // animation: `${tankAnim} 0.6s linear 0s`,
+      // transform: `rotate(90deg)`,
     };
     return weaponStyle;
   }
