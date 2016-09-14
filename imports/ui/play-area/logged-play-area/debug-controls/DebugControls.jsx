@@ -34,6 +34,7 @@ const Debug = ({user}) => {
     <ul id="debug-panel">
       <li>x: {user.tank.position.x}</li>
       <li>y: {user.tank.position.y}</li>
+      <li>rotation: {user.tank.rotation}</li>
       <li>fired: {user.tank.weaponCount}</li>
     </ul>
   );
