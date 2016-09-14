@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './Weapon.scss';
 
 export default class Weapon extends Component {
@@ -7,17 +8,22 @@ export default class Weapon extends Component {
     this.state = {
       weaponUsed: false,
     };
+    this.handleRemove = this.handleRemove.bind(this);
+  }
+  handleRemove() {
+    this.setState({weaponUsed: false});
   }
   weaponClass() {
     const {player} = this.props;
     // weapon type
-    let weaponClass = 'weapon';
+    let weaponClass = 'explosion';
     return weaponClass;
   }
   weaponStyle() {
     const {player} = this.props;
     // weapon style
     let weaponStyle = {
+      position: 'absolute',
       left: `${player.tank.position.y}px`,
       top: `${player.tank.position.x}px`,
       // transform: `rotate(${player.tank.rotation}deg)`,
@@ -25,18 +31,26 @@ export default class Weapon extends Component {
     };
     return weaponStyle;
   }
-  render() {
+  renderWeapon() {
     const {player} = this.props;
     if (player.tank.weaponReady === true) {
       return (
-        <div className={this.weaponClass()}
+        <span
+          onClick={() => this.handleRemove()}
           style={this.weaponStyle()}>
           BOOM!
-        </div>
+        </span>
       );
     }
+  }
+  render() {
     return (
-      <div></div>
+      <ReactCSSTransitionGroup
+        transitionName={this.weaponClass()}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}>
+        {this.renderWeapon()}
+      </ReactCSSTransitionGroup>
     );
   }
 }

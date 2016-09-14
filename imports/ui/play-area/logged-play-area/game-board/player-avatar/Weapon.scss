@@ -1,0 +1,27 @@
+@keyframes boom {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,-30px,0);
+  }
+}
+.explosion-enter {
+  animation: boom 0.5s ease-in 0.1s;
+}
+
+.explosion-enter.explosion-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.explosion-leave {
+  opacity: 1;
+}
+
+.explosion-leave.explosion-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
