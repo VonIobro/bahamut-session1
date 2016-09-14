@@ -53,5 +53,5 @@ export default class Tank extends Component {
 }
 
 Tank.propTypes = {
-  user: React.PropTypes.object,
+  player: React.PropTypes.object,
 };

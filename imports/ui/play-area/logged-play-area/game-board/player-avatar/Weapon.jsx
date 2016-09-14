@@ -53,5 +53,5 @@ export default class Weapon extends Component {
 }
 
 Weapon.propTypes = {
-  user: React.PropTypes.object,
+  player: React.PropTypes.object,
 };
