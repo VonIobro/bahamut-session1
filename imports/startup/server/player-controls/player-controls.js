@@ -77,5 +77,5 @@ Meteor.methods({
       {_id: userId},
       {$set: {'tank.weaponReady': weaponState}}
     );
-  }
+  },
 });

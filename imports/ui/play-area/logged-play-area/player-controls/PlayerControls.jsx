@@ -6,7 +6,11 @@ import './PlayerControls.scss';
 export default class PlayerControls extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showDebugMode: false,
+    };
     this.handleBackClick = this.handleBackClick.bind(this);
+    this.handleDebugClick = this.handleDebugClick.bind(this);
     this.handleFireClick = this.handleFireClick.bind(this);
     this.handleFwdClick = this.handleFwdClick.bind(this);
     this.handleLeftClick = this.handleLeftClick.bind(this);
@@ -15,6 +19,10 @@ export default class PlayerControls extends Component {
   handleBackClick() {
     const {user} = this.props;
     Meteor.call('tank.moveBack', user._id, user.tank.rotation);
+  }
+  handleDebugClick() {
+    const {showDebugMode} = this.state;
+    this.setState({showDebugMode: !showDebugMode});
   }
   handleFireClick() {
     const {user} = this.props;
@@ -33,6 +41,8 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
   }
   render() {
+    const {user} = this.props;
+    const {showDebugMode} = this.state;
     return (
       <Row id="playercontrols">
         <Col sm={6} id="direction">
@@ -58,15 +68,28 @@ export default class PlayerControls extends Component {
           </Row>
         </Col>
         <Col sm={6} id="actions">
-          <ButtonGroup className="action-group">
-            <Button className="action-btn"
-              onClick={this.handleFireClick}>Fire</Button>
-          </ButtonGroup>
+          <Button className="action-btn"
+            onClick={this.handleFireClick}>
+            Fire
+          </Button>
+          <Button className="action-btn"
+            onClick={this.handleDebugClick}>
+            Debug
+          </Button>
         </Col>
+        {showDebugMode ? <Debug user={user}/> : null}
       </Row>
     );
   }
 }
+
+const Debug = ({user}) => (
+  <ul id="debug-panel">
+    <li>x: {user.tank.position.x}</li>
+    <li>y: {user.tank.position.y}</li>
+    <li>fired: {user.tank.weaponReady}</li>
+  </ul>
+);
 
 PlayerControls.propTypes = {
   user: React.PropTypes.object,
