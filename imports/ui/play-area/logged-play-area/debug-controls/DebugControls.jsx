@@ -33,7 +33,7 @@ const Debug = ({user}) => (
   <ul id="debug-panel">
     <li>x: {user.tank.position.x}</li>
     <li>y: {user.tank.position.y}</li>
-    <li>fired: {user.tank.weaponReady}</li>
+    <li>fired: {(user.tank.weaponReady).toString()}</li>
   </ul>
 );
 
