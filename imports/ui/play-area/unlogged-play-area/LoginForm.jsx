@@ -26,7 +26,7 @@ export default class LoginForm extends Component {
         const newMessage = {
           _id: Meteor.uuid(),
           text: err.reason,
-          seen: false,
+          style: 'warning',
         };
         newArray.push(newMessage);
         this.setState({cbMessages: newArray});

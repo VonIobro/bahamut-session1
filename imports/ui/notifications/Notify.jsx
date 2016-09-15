@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {Alert} from 'react-bootstrap';
 import './Notify.scss';
 
@@ -14,35 +15,23 @@ export default class Notify extends Component {
   handleClose(msgId) {
     // update dismissedMsgs array with new messageID
     const {dismissedMsgs} = this.state;
-    const newArray = dismissedMsgs;
-    newArray.push(msgId);
-    this.setState({dismissedMsgs: newArray});
-  }
-  computeStyle(index, msgId) {
-    const {dismissedMsgs} = this.state;
-    const MARGIN = 60;
-    const SPACING = 60; // no margin or padding
-    const topPos = MARGIN + (SPACING * index);
-    let style = {
-      position: 'fixed',
-      top: `${topPos}px`,
-      right: '40px',
-    };
-    if (dismissedMsgs.indexOf(msgId) !== -1) {
-      _.assignIn(style, {visibility: 'hidden',})
-    }
-    return style;
-  }
-  notifyStyle() {
-    return 'warning';
+    dismissedMsgs.push(msgId);
+    this.setState({dismissedMsgs});
   }
   alertNodes() {
     const {messages} = this.props;
-    return messages.map((message, i) => {
+    const {dismissedMsgs} = this.state;
+    // only show messages that have not been dismissed
+    let msgToShow = [];
+    messages.map(message => {
+      if (!_.includes(dismissedMsgs, message._id)) {
+        msgToShow.push(message);
+      }
+    });
+    return msgToShow.map(message => {
       return (
-        <Alert bsStyle={this.notifyStyle()}
-          key={message._id}
-          style={this.computeStyle(i, message._id)}>
+        <Alert bsStyle={message.style ? message.style : 'warning'}
+          key={message._id}>
           {message.text}
           <a href="#" onClick={() => this.handleClose(message._id)}> &times;</a>
         </Alert>
@@ -52,7 +41,12 @@ export default class Notify extends Component {
   render() {
     return (
       <span id="notifications">
-        {this.alertNodes()}
+        <ReactCSSTransitionGroup
+          transitionName="note"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}>
+          {this.alertNodes()}
+        </ReactCSSTransitionGroup>
       </span>
     );
   }
