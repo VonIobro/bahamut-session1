@@ -11,6 +11,7 @@ export default class NavbarMain extends Component {
           <Navbar.Brand>
             <a href="/">Bahamut Attack!</a>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           {user ? <UserControls user={user}/> : null}
