@@ -1,21 +1,26 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import {ai} from '/imports/ui/app_info';
 
-// dimensions of playboard
+// area of playboard to generate user
 // divided by 10 to force grid
-// user will also not be generated on edges of board
-const boardX = [ 2, 43 ];
-const boardY = [ 2, 58 ];
+// user will also generated on edges of board
+let boardX = [];
+boardX[0] = (ai.boardX[0] / ai.grid) + 2;
+boardX[1] = (ai.boardX[1] / ai.grid) - 2;
+let boardY = [];
+boardY[0] = (ai.boardY[0] / ai.grid) + 2;
+boardY[1] = (ai.boardY[1] / ai.grid) - 2;
 const rotations = [ 0, 90, 180, 270 ];
 
 // Math.floor(Math.random() * ((y-x)+1) + x);
 // http://goo.gl/OfvsPH <- about random num gen
 // multiplied by 10 to force grid
 var randomX = () => {
-  return Math.floor(Math.random() * ((boardX[1] - boardX[0]) + 1) + boardX[0]) * 10;
+  return Math.floor(Math.random() * ((boardX[1] - boardX[0]) + 1) + boardX[0]) * ai.grid;
 };
 var randomY = () => {
-  return Math.floor(Math.random() * ((boardY[1] - boardY[0]) + 1) + boardY[0]) * 10;
+  return Math.floor(Math.random() * ((boardY[1] - boardY[0]) + 1) + boardY[0]) * ai.grid;
 };
 var randomRotation = () => {
   return rotations[
