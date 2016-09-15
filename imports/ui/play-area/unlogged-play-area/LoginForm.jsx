@@ -7,7 +7,7 @@ export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showNotify: true,
+      showNotify: false,
       notifyMsg: '',
       username: '',
     };
@@ -30,13 +30,13 @@ export default class LoginForm extends Component {
   }
   render() {
     const {
-      showNotify,
       notifyMsg,
       username,
     } = this.state;
     return (
       <span>
-        {showNotify ? <Notify message={notifyMsg}/> : null}
+        <Notify
+          message={notifyMsg}/>
         <FormControl
           onChange={this.handleInputChange}
           placeholder="Name Your Tank"
