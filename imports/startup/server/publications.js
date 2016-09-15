@@ -6,6 +6,7 @@ Meteor.publish('userTanks', function () {
       _id: 1,
       username: 1,
       tank: 1,
+      debugMode: 1,
     }
   };
   if (this.userId) {

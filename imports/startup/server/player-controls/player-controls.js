@@ -2,6 +2,14 @@ import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 
 Meteor.methods({
+  'debugMode'(userId, val) {
+    check(userId, String);
+    check(val, Boolean);
+    Meteor.users.update(
+      {_id: userId},
+      {$set: {debugMode: val}}
+    );
+  },
   'tank.moveFwd'(userId, rotation) {
     check(userId, String);
     check(rotation, Number);
