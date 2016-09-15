@@ -14,6 +14,21 @@ export default class PlayerControls extends Component {
   }
   handleBackClick() {
     const {user} = this.props;
+    const rot = user.tank.rotation;
+    const posX = user.tank.position.x;
+    const posY = user.tank.position.y;
+    if (rot === 0 && posX >= 430) {
+      return console.log('bottom!');
+    }
+    if (rot === 90 && posY <= 0) {
+      return console.log('left!');
+    }
+    if (rot === 180 && posX <= 0) {
+      return console.log('top!');
+    }
+    if (rot === 270 && posY >= 580) {
+      return console.log('right!');
+    }
     Meteor.call('tank.moveBack', user._id, user.tank.rotation);
   }
   handleFireClick() {
@@ -22,6 +37,21 @@ export default class PlayerControls extends Component {
   }
   handleFwdClick() {
     const {user} = this.props;
+    const rot = user.tank.rotation;
+    const posX = user.tank.position.x;
+    const posY = user.tank.position.y;
+    if (rot === 0 && posX <= 0) {
+      return console.log('top!');
+    }
+    if (rot === 90 && posY >= 580) {
+      return console.log('right!');
+    }
+    if (rot === 180 && posX >= 430) {
+      return console.log('bottom!');
+    }
+    if (rot === 270 && posY <= 0) {
+      return console.log('left!');
+    }
     Meteor.call('tank.moveFwd', user._id, user.tank.rotation);
   }
   handleLeftClick() {
