@@ -29,7 +29,7 @@ export default class PlayerControls extends Component {
     if (rot === 270 && posY >= 580) {
       return console.log('right!');
     }
-    Meteor.call('tank.moveBack', user._id, user.tank.rotation);
+    Meteor.call('tank.moveBack', user._id, rot);
   }
   handleFireClick() {
     const {user} = this.props;
@@ -52,7 +52,7 @@ export default class PlayerControls extends Component {
     if (rot === 270 && posY <= 0) {
       return console.log('left!');
     }
-    Meteor.call('tank.moveFwd', user._id, user.tank.rotation);
+    Meteor.call('tank.moveFwd', user._id, rot);
   }
   handleLeftClick() {
     const {user} = this.props;
@@ -63,7 +63,6 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
   }
   render() {
-    const {user} = this.props;
     return (
       <Row id="playercontrols">
         <Col sm={6} id="direction">
