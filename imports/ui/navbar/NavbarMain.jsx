@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Navbar} from 'react-bootstrap';
-import LoginForm from './LoginForm';
 import UserControls from './UserControls';
 
 export default class NavbarMain extends Component {
@@ -14,7 +13,7 @@ export default class NavbarMain extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Navbar.Collapse>
-          {user ? <UserControls user={user}/> : <LoginForm/>}
+          {user ? <UserControls user={user}/> : null}
         </Navbar.Collapse>
       </Navbar>
     );
