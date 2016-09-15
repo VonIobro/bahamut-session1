@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {composeWithTracker} from 'react-komposer';
-import {Col, Row} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 import NavbarMain from './navbar/NavbarMain';
 import PlayArea from './play-area/PlayArea';
 
@@ -14,9 +14,7 @@ class App extends Component {
           <NavbarMain user={user}/>
         </Row>
         <Row>
-          <Col>
-            <PlayArea user={user}/>
-          </Col>
+          <PlayArea user={user}/>
         </Row>
       </div>
     );
