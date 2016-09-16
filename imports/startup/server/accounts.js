@@ -33,7 +33,6 @@ Accounts.onCreateUser((option, user) => {
     health: 3,
     position: {x: randomX(), y: randomY()},
     rotation: randomRotation(),
-    weaponCount: 0
   };
   return user;
 });
