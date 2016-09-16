@@ -16,8 +16,8 @@ export default class DebugControls extends Component {
 const Debug = ({user}) => {
   return (
     <ul id="debug-panel">
-      <li>x: {user.tank.position.x}</li>
-      <li>y: {user.tank.position.y}</li>
+      <li>x from left: {user.tank.position.x}</li>
+      <li>y from top: {user.tank.position.y}</li>
       <li>rotation: {user.tank.rotation}</li>
       <li>fired: {user.tank.weaponCount}</li>
       <li>health: {user.tank.health}</li>

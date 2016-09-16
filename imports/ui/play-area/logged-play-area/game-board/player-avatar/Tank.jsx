@@ -32,14 +32,10 @@ export default class Tank extends Component {
   tankStyle() {
     const {player} = this.props;
     const {prevRotation} = this.state;
-    // tank rotation
     let nextRotation = player.tank.rotation;
-    let tankAnim = `tank${prevRotation}-${nextRotation}`;
-
-    // tank style
     let tankStyle = {
-      transform: `rotate(${player.tank.rotation}deg)`,
-      animation: `${tankAnim} 0.6s linear 0s`,
+      transform: `rotate(${nextRotation}deg)`,
+      animation: `tank${prevRotation}-${nextRotation} 0.6s linear 0s`,
     };
     return tankStyle;
   }

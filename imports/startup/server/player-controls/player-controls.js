@@ -15,13 +15,13 @@ Meteor.methods({
     check(rotation, Number);
     let translation = [];
     if (rotation === 0) {
-      translation = [ -10, 0 ];
-    } else if (rotation === 90) {
-      translation = [ 0, 10 ];
-    } else if (rotation === 180) {
-      translation = [ 10, 0 ];
-    } else {
       translation = [ 0, -10 ];
+    } else if (rotation === 90) {
+      translation = [ 10, 0 ];
+    } else if (rotation === 180) {
+      translation = [ 0, 10 ];
+    } else {
+      translation = [ -10, 0 ];
     }
     Meteor.users.update(
       {_id: userId},
@@ -36,13 +36,13 @@ Meteor.methods({
     check(rotation, Number);
     let translation = [];
     if (rotation === 0) {
-      translation = [ 10, 0 ];
-    } else if (rotation === 90) {
-      translation = [ 0, -10 ];
-    } else if (rotation === 180) {
-      translation = [ -10, 0 ];
-    } else {
       translation = [ 0, 10 ];
+    } else if (rotation === 90) {
+      translation = [ -10, 0 ];
+    } else if (rotation === 180) {
+      translation = [ 0, -10 ];
+    } else {
+      translation = [ 10, 0 ];
     }
     Meteor.users.update(
       {_id: userId},

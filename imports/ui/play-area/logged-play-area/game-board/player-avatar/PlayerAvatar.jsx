@@ -12,8 +12,8 @@ class PlayerAvatar extends Component {
     return players.map(player => {
       const styles = {
         position: 'absolute',
-        left: `${player.tank.position.y}px`,
-        top: `${player.tank.position.x}px`,
+        left: `${player.tank.position.x}px`,
+        top: `${player.tank.position.y}px`,
       };
       return (
         <span key={player._id}
