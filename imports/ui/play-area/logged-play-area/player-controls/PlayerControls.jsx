@@ -32,6 +32,16 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.moveBack', user._id, rot);
   }
   handleFireClick() {
+/* When user clicks fire:
+  RESULT: shoot fireball from tank, tanks in the vicinity of the fireball lose one health point.
+  ACTIONS:
+    u1. player1_SCREEN, user clicks fire button
+    s1a. PlayerControl_COMPONENT, based on direction (rotation) and position calculate positions affected by fire
+    s1b. METEOR.CALL, update player1 with firing status
+    s1c. METEOR.CALL, search for players that match those positions and update their health
+    u2a. enemy_SCREEN, user sees damage, health points update
+    u2b. player1_SCREEN, sees damage to enemy tank
+*/
     const {user} = this.props;
     Meteor.call('tank.fireWeapon', user._id, true);
   }
