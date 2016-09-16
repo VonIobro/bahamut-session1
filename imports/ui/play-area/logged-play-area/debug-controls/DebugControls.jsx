@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Row} from 'react-bootstrap';
 import './DebugControls.scss';
 
-export default class PlayerControls extends Component {
+export default class DebugControls extends Component {
   render() {
     const {user} = this.props;
     return (
