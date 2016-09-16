@@ -30,9 +30,10 @@ var randomRotation = () => {
 
 Accounts.onCreateUser((option, user) => {
   user.tank = {
+    health: 3,
     position: {x: randomX(), y: randomY()},
     rotation: randomRotation(),
-    weaponCount: 0,
+    weaponCount: 0
   };
   return user;
 });

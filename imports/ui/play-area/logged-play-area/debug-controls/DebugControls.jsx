@@ -20,11 +20,12 @@ const Debug = ({user}) => {
       <li>y: {user.tank.position.y}</li>
       <li>rotation: {user.tank.rotation}</li>
       <li>fired: {user.tank.weaponCount}</li>
-      <li>debugMode: {user.debugMode}</li>
+      <li>health: {user.tank.health}</li>
+      <li>debugMode: {user.debugMode.toString()}</li>
     </ul>
   );
 };
 
-PlayerControls.propTypes = {
+DebugControls.propTypes = {
   user: React.PropTypes.object,
 };

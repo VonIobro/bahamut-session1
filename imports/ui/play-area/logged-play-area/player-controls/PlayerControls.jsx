@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
-import {Button, ButtonGroup, Col, Row} from 'react-bootstrap';
+import {Button, Col, Row, Well} from 'react-bootstrap';
 import './PlayerControls.scss';
 
 export default class PlayerControls extends Component {
@@ -63,6 +63,8 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
   }
   render() {
+    const {user} = this.props;
+    console.log(user.tank.health);
     return (
       <Row id="playercontrols">
         <Col sm={6} id="direction">
@@ -87,11 +89,16 @@ export default class PlayerControls extends Component {
             </Col>
           </Row>
         </Col>
-        <Col sm={6} id="actions">
+        <Col sm={3} id="actions">
           <Button className="action-btn"
             onClick={this.handleFireClick}>
             Fire
           </Button>
+        </Col>
+        <Col sm={3} id="health">
+          <Well>
+            3
+          </Well>
         </Col>
       </Row>
     );
