@@ -78,12 +78,20 @@ Meteor.methods({
       {$inc: {'tank.rotation': rotate}}
     );
   },
-  'tank.fireWeapon'(userId, fireArea) {
+  'tank.fireWeapon'(userId, weapon) {
     check(userId, String);
-    check(fireArea, Object);
+    check(weapon, Object);
+    weapon.area = [];
     return Meteor.users.update(
       {_id: userId},
-      {$inc: {'tank.weaponCount': 1}}
+      {
+        $inc: {'tank.weapon.count': 1},
+        $set: {
+          'tank.weapon.area': weapon.area,
+          'tank.weapon.position': weapon.position,
+          'tank.weapon.rotation': weapon.rotation
+        }
+      }
     );
   },
 });

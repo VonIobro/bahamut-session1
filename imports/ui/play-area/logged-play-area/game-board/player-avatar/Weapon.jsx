@@ -6,19 +6,20 @@ export default class Weapon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weaponCount: null,
       shouldFireWeapon: false,
     };
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
-    const curWeaponCount = nextProps.player.tank.weaponCount;
-    const prevWeaponCount = player.tank.weaponCount;
-    // only update state if props changed
-    if (curWeaponCount > prevWeaponCount) {
-      this.setState({shouldFireWeapon: true});
-    } else {
-      this.setState({shouldFireWeapon: false});
+    if (nextProps.player.tank.weapon) {
+      const nextCount = nextProps.player.tank.weapon.count;
+      const prevCount = player.tank.weapon.count;
+      // only update state if props changed
+      if (nextCount > prevCount) {
+        this.setState({shouldFireWeapon: true});
+      } else {
+        this.setState({shouldFireWeapon: false});
+      }
     }
   }
   weaponClass() {

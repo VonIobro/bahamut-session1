@@ -43,28 +43,12 @@ export default class PlayerControls extends Component {
     u2b. player1_SCREEN, sees damage to enemy tank
 */
     const {user} = this.props;
-    const rot = user.tank.rotation;
-    const posX = user.tank.position.x;
-    const posY = user.tank.position.y;
-    let fireArea = {};
-    let range = 60;
-    if (rot === 0) {
-      fireArea.beg = [ posX, posY ];
-      fireArea.end = [ (posX - range), posY ];
-    }
-    if (rot === 90) {
-      fireArea.beg = [ posX, posY ];
-      fireArea.end = [ posX, (posY + range) ];
-    }
-    if (rot === 180) {
-      fireArea.beg = [ posX, posY ];
-      fireArea.end = [ (posX + range), posY ];
-    }
-    if (rot === 270) {
-      fireArea.beg = [ posX, posY ];
-      fireArea.end = [ posX, (posY - range) ];
-    }
-    Meteor.call('tank.fireWeapon', user._id, fireArea);
+    let weapon = {
+      position: user.tank.position,
+      rotation: user.tank.rotation,
+      type: 'fire'
+    };
+    Meteor.call('tank.fireWeapon', user._id, weapon);
   }
   handleFwdClick() {
     const {user} = this.props;
