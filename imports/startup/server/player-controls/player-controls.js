@@ -78,9 +78,9 @@ Meteor.methods({
       {$inc: {'tank.rotation': rotate}}
     );
   },
-  'tank.fireWeapon'(userId, weaponState) {
+  'tank.fireWeapon'(userId, fireArea) {
     check(userId, String);
-    check(weaponState, Boolean);
+    check(fireArea, Object);
     return Meteor.users.update(
       {_id: userId},
       {$inc: {'tank.weaponCount': 1}}
