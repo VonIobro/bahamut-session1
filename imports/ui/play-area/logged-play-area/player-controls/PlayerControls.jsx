@@ -64,7 +64,6 @@ export default class PlayerControls extends Component {
   }
   render() {
     const {user} = this.props;
-    console.log(user.tank.health);
     return (
       <Row id="playercontrols">
         <Col sm={6} id="direction">
@@ -95,9 +94,9 @@ export default class PlayerControls extends Component {
             Fire
           </Button>
         </Col>
-        <Col sm={3} id="health">
-          <Well>
-            3
+        <Col sm={3}>
+          <Well id="health">
+            {user.tank.health}
           </Well>
         </Col>
       </Row>
