@@ -32,7 +32,7 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.moveBack', user._id, rot);
   }
   handleFireClick() {
-/* When user clicks fire:
+/* TODO When user clicks fire:
   RESULT: shoot fireball from tank, tanks in the vicinity of the fireball lose one health point.
   ACTIONS:
     u1. player1_SCREEN, user clicks fire button

@@ -81,6 +81,24 @@ Meteor.methods({
   'tank.fireWeapon'(userId, weapon) {
     check(userId, String);
     check(weapon, Object);
+    let range = 60;
+    /* TODO: LIMIT PLAYERS TO SEARCH */
+    // if rotation is 0 (up) or 180 (down)
+    // search users on player1's pos.x (directly above/below)
+    // if rotation is 90 (right) or 270 (left)
+    // search users on player1's pos.y (directly left/right)
+
+    // DETERMINE TILES AFFECTED
+    // if 0, beg [100, 100] -> end [100, 40] => pos.y $gt: 40, $lt: 100
+    // if 90, beg [100, 100] -> end [40, 100] => pos.x $gt: 40, $lt: 100
+    // if 180, beg [100, 100] -> end [100, 160] => pos.y $gt: 100, $lt: 160
+    // if 270, beg [100, 100] -> end [160, 100] => pos.x $gt: 100, $lt: 160
+    // determine tiles affected, based on range, and starting pos.x
+    // then search for users $gt $lt in the pos.y
+
+    // COMMON ACTION
+    // update hit enemies by $inc -1 their tank health
+    // update player1 with hit enemy list
     weapon.area = [];
     return Meteor.users.update(
       {_id: userId},
