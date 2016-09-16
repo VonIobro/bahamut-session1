@@ -38,7 +38,7 @@ PlayerAvatar.propTypes = {
 };
 
 export default composeWithTracker((props, onData) => {
-  const subscription = Meteor.subscribe('userTanks');
+  const subscription = Meteor.subscribe('users.tanks');
   if (subscription.ready()) {
     const players = Meteor.users.find({}).fetch();
     onData(null, {players});

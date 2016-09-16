@@ -22,8 +22,9 @@ class App extends Component {
 }
 
 export default composeWithTracker((props, onData) => {
-  var user = Meteor.user();
-  onData(null, {
-    user
-  });
+  const subscription = Meteor.subscribe('users.player1');
+  if (subscription.ready()) {
+    const user = Meteor.user();
+    onData(null, {user});
+  }
 })(App);
