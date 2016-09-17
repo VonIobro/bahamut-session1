@@ -83,12 +83,14 @@ Meteor.methods({
     check(weapon, Object);
     let range = 60;
     /* TODO: LIMIT PLAYERS TO SEARCH */
-    // if rotation is 0 (up) or 180 (down)
-    // search users on player1's pos.x (directly above/below)
-    // if rotation is 90 (right) or 270 (left)
-    // search users on player1's pos.y (directly left/right)
+    if (weapon.rotation === 0 || weapon.rotation == 180) {
+      // search users on player1's pos.x (directly above/below)
+    }
+    if (weapon.rotation === 90 || weapon.rotation == 270) {
+      // search users on player1's pos.y (directly left/right)
+    }
 
-    // DETERMINE TILES AFFECTED
+    // CALCULATE TILES AFFECTED
     // if 0, beg [100, 100] -> end [100, 40] => pos.y $gt: 40, $lt: 100
     // if 90, beg [100, 100] -> end [40, 100] => pos.x $gt: 40, $lt: 100
     // if 180, beg [100, 100] -> end [100, 160] => pos.y $gt: 100, $lt: 160
