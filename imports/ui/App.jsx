@@ -30,6 +30,7 @@ export default composeWithTracker((props, onData) => {
     onData(null, {user});
   }
 
+  Meteor.subscribe('serverMessagesPublication');
   // Handling new messages from the server
   ServerMessages.find().observeChanges({
     added: (id, fields) => {
