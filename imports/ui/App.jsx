@@ -21,10 +21,23 @@ class App extends Component {
   }
 }
 
+import {ServerMessages} from '/imports/ui/lib/serverMessages';
+
 export default composeWithTracker((props, onData) => {
   const subscription = Meteor.subscribe('users.player1');
   if (subscription.ready()) {
     const user = Meteor.user();
     onData(null, {user});
+  }
+
+  // Handling new messages from the server
+  ServerMessages.find().observeChanges({
+    added: (id, fields) => {
+      HandleServerMessage(fields);
+    }
+  });
+
+  function HandleServerMessage(fields) {
+    console.log('hello ', fields);
   }
 })(App);
