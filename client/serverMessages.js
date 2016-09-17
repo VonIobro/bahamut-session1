@@ -1,6 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 
-export const ServerMessages = new Meteor.Collection('serverMessageCollection');
+export const ServerMessages = new Meteor.Collection('serverMessages');
 
 Meteor.subscribe('serverMessagesPublication');
 // Handling new messages from the server

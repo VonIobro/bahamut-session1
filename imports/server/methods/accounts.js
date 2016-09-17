@@ -1,4 +1,3 @@
-import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import {ai} from '/imports/ui/app_info';
 
