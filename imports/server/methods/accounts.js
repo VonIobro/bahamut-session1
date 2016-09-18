@@ -1,4 +1,5 @@
-import { Accounts } from 'meteor/accounts-base';
+import {Accounts} from 'meteor/accounts-base';
+import {Meteor} from 'meteor/meteor';
 import {ai} from '/imports/ui/app_info';
 
 // area of playboard to generate user
@@ -28,6 +29,8 @@ var randomRotation = () => {
 };
 
 Accounts.onCreateUser((option, user) => {
+  console.log(user.username)
+  Meteor.call('serverMessages.newUser', user.username);
   user.tank = {
     health: 3,
     position: {x: randomX(), y: randomY()},
