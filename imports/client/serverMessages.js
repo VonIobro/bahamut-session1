@@ -15,4 +15,11 @@ export default function () {
 function HandleServerMessage(id, fields) {
   console.log('id', id);
   console.log('hello ', fields);
+  // filter out messages older than 5s
+
+  // filter out seen messages
+
+  // add new message id to array
+
+  // depending on 'type', do stuff
 }
