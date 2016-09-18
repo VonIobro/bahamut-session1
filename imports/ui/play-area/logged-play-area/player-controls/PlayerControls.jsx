@@ -11,7 +11,6 @@ export default class PlayerControls extends Component {
     this.handleFwdClick = this.handleFwdClick.bind(this);
     this.handleLeftClick = this.handleLeftClick.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
-    this.handleServerCall = this.handleServerCall.bind(this);
   }
   handleBackClick() {
     const {user} = this.props;
@@ -78,10 +77,6 @@ export default class PlayerControls extends Component {
     const {user} = this.props;
     Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
   }
-  handleServerCall() {
-    const {user} = this.props;
-    Meteor.call('serverMessages.consoleLog', user._id);
-  }
   render() {
     const {user} = this.props;
     return (
@@ -112,10 +107,6 @@ export default class PlayerControls extends Component {
           <Button className="action-btn"
             onClick={this.handleFireClick}>
             Fire
-          </Button>
-          <Button className="server-call"
-            onClick={this.handleServerCall}>
-            Server
           </Button>
         </Col>
         <Col sm={3}>
