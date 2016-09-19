@@ -1,4 +1,5 @@
 import {Meteor} from 'meteor/meteor';
+import HandleServerMessages from './handleServerMessages';
 
 export const ServerMessages = new Meteor.Collection('serverMessages');
 
@@ -7,27 +8,7 @@ export default function () {
   // Handling new messages from the server
   ServerMessages.find().observeChanges({
     added: (id, fields) => {
-      HandleServerMessage(id, fields);
+      HandleServerMessages(id, fields);
     }
   });
-}
-
-function HandleServerMessage(id, fields) {
-  // filter out messages older than 500ms
-  const cutTime = new Date().valueOf() - 500;
-  const msgTime = fields.date.valueOf();
-  if (msgTime < cutTime) {
-    return;
-  }
-
-  // depending on 'type', do stuff
-  if (fields.type === 'notification') {
-    console.log(fields.args);
-  }
-
-  if (fields.type === 'newUser') {
-    const username = fields.args;
-    console.log(fields.date);
-    console.log(`Enter ${username}`);
-  }
 }

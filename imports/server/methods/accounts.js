@@ -29,7 +29,6 @@ var randomRotation = () => {
 };
 
 Accounts.onCreateUser((option, user) => {
-  console.log(user.username)
   Meteor.call('serverMessages.newUser', user.username);
   user.tank = {
     health: 3,
