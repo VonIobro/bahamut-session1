@@ -8,6 +8,7 @@ Meteor.methods({
     ServerMessages.insert({
       date: new Date(),
       type: 'newUser',
+      args: username
     });
   },
 });

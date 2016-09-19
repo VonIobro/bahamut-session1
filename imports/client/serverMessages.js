@@ -13,13 +13,25 @@ export default function () {
 }
 
 function HandleServerMessage(id, fields) {
-  console.log('id', id);
-  console.log('hello ', fields);
-  // filter out messages older than 5s
+  // filter out messages older than 500ms
+  const cutTime = new Date().valueOf() - 500;
+  const msgTime = fields.date.valueOf();
+  if (msgTime < cutTime) {
+    return;
+  }
+
+  // depending on 'type', do stuff
+  if (fields.type === 'notification') {
+    console.log(fields.args);
+  }
+
+  if (fields.type === 'newUser') {
+    const username = fields.args;
+    console.log(`Enter ${username}`);
+  }
 
   // filter out seen messages
 
   // add new message id to array
 
-  // depending on 'type', do stuff
 }

@@ -1,3 +1,7 @@
 import {ServerMessages} from '../lib/collections';
 
-ServerMessages.insert({type: 'blabla'});
+ServerMessages.insert({
+  date: new Date(),
+  type: 'message',
+  args: 'System Restarted',
+});
