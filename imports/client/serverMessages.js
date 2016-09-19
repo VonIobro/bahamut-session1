@@ -30,9 +30,4 @@ function HandleServerMessage(id, fields) {
     console.log(fields.date);
     console.log(`Enter ${username}`);
   }
-
-  // filter out seen messages
-
-  // add new message id to array
-
 }
