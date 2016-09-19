@@ -6,6 +6,7 @@ Meteor.publish('serverMessagesPublication', function () {
 
   ServerMessages.find().observeChanges({
     added: (id, fields) => {
+      fields.date = new Date();
       publisher.added('serverMessages', id, fields);
     },
     removed: (id) => {

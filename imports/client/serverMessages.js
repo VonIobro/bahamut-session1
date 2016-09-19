@@ -27,6 +27,7 @@ function HandleServerMessage(id, fields) {
 
   if (fields.type === 'newUser') {
     const username = fields.args;
+    console.log(fields.date);
     console.log(`Enter ${username}`);
   }
 

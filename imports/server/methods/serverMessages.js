@@ -6,7 +6,6 @@ Meteor.methods({
   'serverMessages.newUser'(username) {
     check(username, String);
     ServerMessages.insert({
-      date: new Date(),
       type: 'newUser',
       args: username
     });
