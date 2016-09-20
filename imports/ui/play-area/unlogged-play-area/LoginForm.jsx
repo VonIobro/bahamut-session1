@@ -8,7 +8,6 @@ export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cbMessages: [],
       username: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -19,26 +18,24 @@ export default class LoginForm extends Component {
   }
   handleStartClick(event) {
     event.preventDefault();
-    const {cbMessages, username} = this.state;
+    const {username} = this.state;
     Accounts.createUser({username, password: 'password'}, (err) => {
       if (err && err.reason) {
-        let newArray = cbMessages;
         const newMessage = {
           _id: Meteor.uuid(),
           text: err.reason,
           style: 'warning',
         };
-        newArray.push(newMessage);
-        this.setState({cbMessages: newArray});
+        this.setState({cbMessages: newMessage});
       }
     });
     this.setState({username: ''});
   }
   render() {
-    const { cbMessages, username } = this.state;
+    const {cbMessages, username} = this.state;
     return (
       <span>
-        <Notify messages={cbMessages}/>
+        <Notify message={cbMessages}/>
         <FormControl
           onChange={this.handleInputChange}
           placeholder="Name Your Tank"

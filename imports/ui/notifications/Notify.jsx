@@ -8,27 +8,34 @@ export default class Notify extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dismissedMsgs: [],
+      curMessages: [],
     };
     this.handleClose = this.handleClose.bind(this);
   }
+  componentWillReceiveProps(nextProps) {
+    const {message} = this.props;
+    const {curMessages} = this.state;
+    // return if no new messages
+    if (!nextProps.message) {
+      return;
+    }
+    // ensure unique messages
+    const msgId = nextProps.message._id;
+    if (!_.includes(message, msgId)) {
+      curMessages.push(nextProps.message);
+      this.setState({curMessages});
+    }
+  }
   handleClose(msgId) {
-    // update dismissedMsgs array with new messageID
-    const {dismissedMsgs} = this.state;
-    dismissedMsgs.push(msgId);
-    this.setState({dismissedMsgs});
+    // remove dismissedMsgs from array
+    const {curMessages} = this.state;
+    const indexToRemove = _.findIndex(curMessages, {_id: msgId});
+    curMessages.splice(indexToRemove, 1);
+    this.setState({curMessages});
   }
   alertNodes() {
-    const {messages} = this.props;
-    const {dismissedMsgs} = this.state;
-    // only show messages that have not been dismissed
-    let msgToShow = [];
-    messages.map(message => {
-      if (!_.includes(dismissedMsgs, message._id)) {
-        msgToShow.push(message);
-      }
-    });
-    return msgToShow.map(message => {
+    const {curMessages} = this.state;
+    return curMessages.map(message => {
       return (
         <Alert bsStyle={message.style ? message.style : 'warning'}
           key={message._id}>
@@ -39,6 +46,10 @@ export default class Notify extends Component {
     });
   }
   render() {
+    const {curMessages} = this.state;
+    if (curMessages === []) {
+      return <span>why</span>;
+    }
     return (
       <span id="notifications">
         <ReactCSSTransitionGroup
@@ -53,5 +64,5 @@ export default class Notify extends Component {
 }
 
 Notify.propTypes = {
-  messages: React.PropTypes.array,
+  message: React.PropTypes.object,
 };
