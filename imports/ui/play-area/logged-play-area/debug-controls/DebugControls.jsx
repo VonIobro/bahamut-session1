@@ -37,6 +37,7 @@ class Debug extends Component {
             <li>rotation: {weapon.rotation}</li>
             <li>area: {weapon.area}</li>
           </ul>
+          <p>Remember to refresh UI</p>
           <Button onClick={this.handleNewuser}>
             New User
           </Button>
