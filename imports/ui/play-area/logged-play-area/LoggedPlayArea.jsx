@@ -10,7 +10,7 @@ export default class LoggedPlayArea extends Component {
     const {user} = this.props;
     return (
       <div className="container">
-        <Notify messages={system.messages}/>
+        <Notify message={system.message}/>
         <GameBoard user={user}/>
         <PlayerControls user={user}/>
         <DebugControls user={user}/>

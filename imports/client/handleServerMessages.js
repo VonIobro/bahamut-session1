@@ -1,6 +1,6 @@
 export default function HandleServerMessages(id, fields) {
   // filter out messages older than 500ms
-  const cutTime = new Date().valueOf() - 500;
+  const cutTime = new Date().valueOf() - 1000;
   const msgTime = fields.date.valueOf();
   console.log('cut: ' + cutTime);
   console.log('msg: ' + msgTime);
@@ -20,15 +20,14 @@ export default function HandleServerMessages(id, fields) {
 
 class System {
   constructor() {
-    this.messages = [];
+    this.message = {};
   }
   addNotification(id, fields) {
-    let message = {
+    this.message = {
       _id: id,
       text: `Enter ${fields.username}`,
       style: 'warning'
     };
-    this.messages = [ message ];
   }
 }
 
