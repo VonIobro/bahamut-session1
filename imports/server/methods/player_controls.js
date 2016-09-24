@@ -82,32 +82,39 @@ Meteor.methods({
     check(userId, String);
     check(weapon, Object);
     let range = 60;
+    let areaX = []; // [start, end]
+    let areaY = []; // [start, end]
     /* TODO: LIMIT PLAYERS TO SEARCH */
-    if (weapon.rotation === 0 || weapon.rotation == 180) {
-      // search users on player1's pos.x (directly above/below)
+    if (weapon.rotation === 0) {
+      areaX = [ weapon.position.x, weapon.position.x ];
+      areaY[0] = weapon.position.y;
+      areaY[1] = weapon.position.y - range;
     }
-    if (weapon.rotation === 90 || weapon.rotation == 270) {
-      // search users on player1's pos.y (directly left/right)
+    if (weapon.rotation === 90) {
+      areaX[0] = weapon.position.x;
+      areaX[1] = weapon.position.x + range;
+      areaY = [ weapon.position.y, weapon.position.y ];
     }
-
-    // CALCULATE TILES AFFECTED
-    // if 0, beg [100, 100] -> end [100, 40] => pos.y $gt: 40, $lt: 100
-    // if 90, beg [100, 100] -> end [40, 100] => pos.x $gt: 40, $lt: 100
-    // if 180, beg [100, 100] -> end [100, 160] => pos.y $gt: 100, $lt: 160
-    // if 270, beg [100, 100] -> end [160, 100] => pos.x $gt: 100, $lt: 160
-    // determine tiles affected, based on range, and starting pos.x
-    // then search for users $gt $lt in the pos.y
+    if (weapon.rotation === 180) {
+      areaX = [ weapon.position.x, weapon.position.x ];
+      areaY[0] = weapon.position.y;
+      areaY[1] = weapon.position.y + range;
+    }
+    if (weapon.rotation === 270) {
+      areaX[0] = weapon.position.x;
+      areaX[1] = weapon.position.x - range;
+      areaY = [ weapon.position.y, weapon.position.y ];
+    }
 
     // COMMON ACTION
     // update hit enemies by $inc -1 their tank health
     // update player1 with hit enemy list
-    weapon.area = [];
     return Meteor.users.update(
       {_id: userId},
       {
         $inc: {'tank.weapon.count': 1},
         $set: {
-          'tank.weapon.area': weapon.area,
+          'tank.weapon.area': `x${areaX}, y${areaY}`,
           'tank.weapon.position': weapon.position,
           'tank.weapon.rotation': weapon.rotation
         }
