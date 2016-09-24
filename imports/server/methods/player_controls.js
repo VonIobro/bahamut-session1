@@ -81,33 +81,49 @@ Meteor.methods({
   'tank.fireWeapon'(userId, weapon) {
     check(userId, String);
     check(weapon, Object);
-    let range = 60;
+    const weaponY = weapon.position.y;
+    const weaponX = weapon.position.x;
+    const widthY = [ weaponY - 10, weaponY + 10 ];
+    const widthX = [ weaponX - 10, weaponX + 10 ];
+    const range = 60;
+    let halfWidth = 10;
     let areaX = []; // [start, end]
     let areaY = []; // [start, end]
     /* TODO: LIMIT PLAYERS TO SEARCH */
     if (weapon.rotation === 0) {
-      areaX = [ weapon.position.x, weapon.position.x ];
-      areaY[0] = weapon.position.y;
-      areaY[1] = weapon.position.y - range;
+      areaX = widthX;
+      areaY = [ weaponY, weaponY - range ];
     }
     if (weapon.rotation === 90) {
-      areaX[0] = weapon.position.x;
-      areaX[1] = weapon.position.x + range;
-      areaY = [ weapon.position.y, weapon.position.y ];
+      areaX = [ weaponX, weaponX + range ];
+      areaY = widthY;
     }
     if (weapon.rotation === 180) {
-      areaX = [ weapon.position.x, weapon.position.x ];
-      areaY[0] = weapon.position.y;
-      areaY[1] = weapon.position.y + range;
+      areaX = widthX;
+      areaY = [ weaponY, weaponY + range ];
     }
     if (weapon.rotation === 270) {
-      areaX[0] = weapon.position.x;
-      areaX[1] = weapon.position.x - range;
-      areaY = [ weapon.position.y, weapon.position.y ];
+      areaX = [ weaponX, weaponX - range ];
+      areaY = widthY;
     }
 
     // COMMON ACTION
     // update hit enemies by $inc -1 their tank health
+    const hitQuery = {
+      $and: [
+        {
+          'tank.position.x': {$gte: areaX[0], $lte: areaX[1]},
+          'tank.position.y': {$gte: areaY[0], $lte: areaY[1]}
+        },
+        {
+          _id: {$ne: Meteor.userId()}
+        }
+      ]
+    };
+    const hitUpdate = {
+      $inc: {'tank.health': -1}
+    };
+    Meteor.users.update(hitQuery, hitUpdate, {multi: true});
     // update player1 with hit enemy list
     return Meteor.users.update(
       {_id: userId},
