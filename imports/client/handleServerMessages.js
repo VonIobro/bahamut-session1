@@ -29,6 +29,18 @@ class System {
       style: 'warning'
     };
   }
+  addTank(id, fields) {
+    // adds a notification that a new player has entered
+    // if player1 (this.userId) animates player1 tank
+    // based on position (color, style?)
+    // if enemy animates eneny tank
+  }
+  gameIntro() {
+    // intro animations
+  }
+  gameOutro() {
+    // outro animations
+  }
 }
 
 export const system = new System();
