@@ -1,20 +1,56 @@
+import {Meteor} from 'meteor/meteor';
+
 export default function HandleServerMessages(id, fields) {
   // filter out messages older than 500ms
   const cutTime = new Date().valueOf() - 1000;
   const msgTime = fields.date.valueOf();
-  console.log('cut: ' + cutTime);
-  console.log('msg: ' + msgTime);
   if (msgTime < cutTime) {
     return;
   }
-
   // depending on 'type', do stuff
   if (fields.type === 'notification') {
-    system.addNotification(fields);
+    const message = {
+      _id: id,
+      text: fields.text
+    };
+    system.addNotification(message);
   }
 
   if (fields.type === 'newUser') {
-    system.addNotification(id, fields);
+    const message = {
+      _id: id,
+      text: `Enter ${fields.username}`,
+      style: 'warning'
+    };
+    system.addNotification(message);
+  }
+
+  if (fields.type === 'hitUpdate') {
+    // define player
+    let player;
+    if (fields.player.id === Meteor.userId()) {
+      player = 'You';
+    } else {
+      player = fields.player.username;
+    }
+    // define text
+    let result;
+    if (fields.data.length === 0) {
+      result = ' missed!';
+    } else {
+      let hitEnemyNames = 'none';
+      fields.data.forEach((enemy) => {
+        hitEnemyNames += `${enemy.username} `;
+      });
+      hitEnemyNames = hitEnemyNames.slice(0, -1);
+      result = ` hit ${hitEnemyNames}!`;
+    }
+    const message = {
+      _id: id,
+      text: `${player} ${result}`,
+      style: 'warning'
+    };
+    system.addNotification(message);
   }
 }
 
@@ -22,12 +58,8 @@ class System {
   constructor() {
     this.message = {};
   }
-  addNotification(id, fields) {
-    this.message = {
-      _id: id,
-      text: `Enter ${fields.username}`,
-      style: 'warning'
-    };
+  addNotification(message) {
+    this.message = message;
   }
   addTank(id, fields) {
     // adds a notification that a new player has entered
@@ -40,6 +72,8 @@ class System {
   }
   gameOutro() {
     // outro animations
+  }
+  hitUpdate() {
   }
 }
 

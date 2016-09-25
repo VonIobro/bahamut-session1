@@ -115,7 +115,18 @@ Meteor.methods({
     Meteor.users.update(hitQuery, hitUpdate, {multi: true});
 
     // update player1 with hit enemy list
-    return Meteor.users.update(
+    const projection = {
+      fields: {
+        _id: 1,
+        username: 1
+      }
+    };
+    const hitPlayers = Meteor.users.find(hitQuery, projection).fetch();
+    // update all players with hits notification
+    Meteor.call('serverMessages.hitUpdate', hitPlayers);
+
+    // update player with debug information
+    Meteor.users.update(
       {_id: userId},
       {
         $inc: {'tank.weapon.count': 1},
@@ -126,5 +137,6 @@ Meteor.methods({
         }
       }
     );
+    return;
   },
 });
