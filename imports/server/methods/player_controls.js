@@ -85,27 +85,20 @@ Meteor.methods({
     // determine affected area of weapon
     const weaponY = weapon.position.y;
     const weaponX = weapon.position.x;
-    const widthY = [ weaponY - 10, weaponY + 10 ];
-    const widthX = [ weaponX - 10, weaponX + 10 ];
+    let areaX = [ weaponX - 10, weaponX + 10 ];
+    let areaY = [ weaponY - 10, weaponY + 10 ];
     const range = 60;
-    let areaX = []; // [start, end]
-    let areaY = []; // [start, end]
-    /* TODO: LIMIT PLAYERS TO SEARCH */
     if (weapon.rotation === 0) {
-      areaX = widthX;
       areaY = [ weaponY - range, weaponY ];
     }
     if (weapon.rotation === 90) {
       areaX = [ weaponX, weaponX + range ];
-      areaY = widthY;
     }
     if (weapon.rotation === 180) {
-      areaX = widthX;
       areaY = [ weaponY, weaponY + range ];
     }
     if (weapon.rotation === 270) {
       areaX = [ weaponX - range, weaponX ];
-      areaY = widthY;
     }
 
     // update hit enemies by $inc -1 their tank health
