@@ -5,33 +5,22 @@ import {Alert} from 'react-bootstrap';
 import './Notify.scss';
 
 class NotifyMessage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {visible: true};
-    this.handleClose = this.handleClose.bind(this);
-  }
   componentWillReceiveProps(nextProps) {
     // reset the timer if children are changed
     if (nextProps.children !== this.props.children) {
       this.setTimer();
-      this.setState({visible: true});
     }
   }
   componentDidMount() {
     this.setTimer();
   }
-  handleClose(msgId) {
-    const {onHandleClose} = this.props;
-    this.setState({visible: false});
-    onHandleClose(msgId);
-  }
   setTimer() {
-    const {delay} = this.props;
+    const {delay, message, onHandleClose} = this.props;
     // clear any existing timer
-    timer != null ? clearTimeout(timer) : null;
+    this._timer != null ? clearTimeout(this._timer) : null;
     // hide after 'delay' miliseconds
-    timer = setTimeout(() => {
-      this.setState({visible: false});
+    this._timer = setTimeout(() => {
+      onHandleClose(message.id);
       this._timer = null;
     }, delay);
   }
@@ -39,25 +28,13 @@ class NotifyMessage extends Component {
     clearTimeout(this._timer);
   }
   render() {
-    const {message} = this.props;
-    const {visible} = this.state;
-    var component;
-    if (visible) {
-      component = (
-          <Alert bsStyle={message.style ? message.style : 'warning'}
-            key={message._id}>
-            {message.text}
-            <a href="#" onClick={() => this.handleClose(message._id)}> &times;</a>
-          </Alert>
-      );
-    }
+    const {message, onHandleClose} = this.props;
     return (
-      <ReactCSSTransitionGroup
-        transitionName="note"
-        transitionEnterTimeout={200}
-        transitionLeaveTimeout={200}>
-        {component}
-      </ReactCSSTransitionGroup>
+      <Alert bsStyle={message.style ? message.style : 'warning'}
+        key={message._id}>
+        {message.text}
+        <a href="#" onClick={() => onHandleClose(message._id)}> &times;</a>
+      </Alert>
     );
   }
 }
@@ -94,7 +71,7 @@ export default class Notify extends Component {
   alertNodes() {
     const {curMessages} = this.state;
     const delay = 3000;
-    return curMessages.forEach(message => {
+    return curMessages.map(message => {
       return (
         <NotifyMessage
           delay={delay}
@@ -111,7 +88,12 @@ export default class Notify extends Component {
     }
     return (
       <span id="notifications">
-        {this.alertNodes()}
+        <ReactCSSTransitionGroup
+          transitionName="note"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}>
+          {this.alertNodes()}
+        </ReactCSSTransitionGroup>
       </span>
     );
   }
