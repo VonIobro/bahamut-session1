@@ -79,10 +79,6 @@ export default class Notify extends Component {
     });
   }
   render() {
-    const {curMessages} = this.state;
-    if (curMessages === []) {
-      return <span/>;
-    }
     return (
       <span id="notifications">
         <ReactCSSTransitionGroup
