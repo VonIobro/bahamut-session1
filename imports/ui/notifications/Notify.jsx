@@ -30,8 +30,7 @@ class NotifyMessage extends Component {
   render() {
     const {message, onHandleClose} = this.props;
     return (
-      <Alert bsStyle={message.style ? message.style : 'warning'}
-        key={message._id}>
+      <Alert bsStyle={message.style ? message.style : 'warning'}>
         {message.text}
         <a href="#" onClick={() => onHandleClose(message._id)}> &times;</a>
       </Alert>
@@ -75,6 +74,7 @@ export default class Notify extends Component {
       return (
         <NotifyMessage
           delay={delay}
+          key={message._id}
           message={message}
           onHandleClose={this.onHandleClose}>
         </NotifyMessage>
