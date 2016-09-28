@@ -9,14 +9,18 @@ class NotifyMessage extends Component {
     this.setTimer();
   }
   setTimer() {
-    const {delay, message, onHandleClose} = this.props;
+    const {message, onHandleClose} = this.props;
+    // dont add a timer, keep notification open until dismissed
+    if (!message.delay) {
+      return;
+    }
     // clear any existing timer
     this._timer != null ? clearTimeout(this._timer) : null;
     // hide after 'delay' miliseconds
     this._timer = setTimeout(() => {
       onHandleClose(message._id);
       this._timer = null;
-    }, delay);
+    }, message.delay);
   }
   componentWillUnmount() {
     clearTimeout(this._timer);
@@ -63,11 +67,10 @@ export default class Notify extends Component {
   }
   alertNodes() {
     const {curMessages} = this.state;
-    const delay = 3000;
     return curMessages.map(message => {
+      // add message.delay to autoclose notification
       return (
         <NotifyMessage
-          delay={delay}
           key={message._id}
           message={message}
           onHandleClose={this.onHandleClose}>

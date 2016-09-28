@@ -19,6 +19,7 @@ export default function HandleServerMessages(id, fields) {
   if (fields.type === 'newUser') {
     const message = {
       _id: id,
+      delay: 4000,
       text: `Enter ${fields.username}`,
       style: 'warning'
     };
@@ -47,6 +48,7 @@ export default function HandleServerMessages(id, fields) {
     }
     const message = {
       _id: id,
+      delay: 2000,
       text: `${player} ${result}`,
       style: 'warning'
     };
