@@ -8,17 +8,15 @@
 
 @keyframes enter-anim {
   0% {
-    opacity: 0.01;
+    opacity: 0;
     transform: translate3d(30px,0,0);
   }
   100% { opacity: 1; }
 }
 @keyframes leave-anim {
-  0% {
-    opacity: 1;
-  }
+  0% { opacity: 1; }
   100% {
-    opacity: 0.01;
+    opacity: 0;
     transform: translate3d(30px,0,0);
   }
 }
@@ -28,5 +26,5 @@
 }
 
 .note-leave {
-  animation: leave-anim 0.2s ease-out;
+  animation: leave-anim 0.2s ease;
 }
