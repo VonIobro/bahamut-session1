@@ -5,12 +5,6 @@ import {Alert} from 'react-bootstrap';
 import './Notify.scss';
 
 class NotifyMessage extends Component {
-  componentWillReceiveProps(nextProps) {
-    // reset the timer if children are changed
-    if (nextProps.children !== this.props.children) {
-      this.setTimer();
-    }
-  }
   componentDidMount() {
     this.setTimer();
   }
@@ -20,7 +14,7 @@ class NotifyMessage extends Component {
     this._timer != null ? clearTimeout(this._timer) : null;
     // hide after 'delay' miliseconds
     this._timer = setTimeout(() => {
-      onHandleClose(message.id);
+      onHandleClose(message._id);
       this._timer = null;
     }, delay);
   }
