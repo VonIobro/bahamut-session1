@@ -55,9 +55,6 @@ export default function HandleServerMessages(id, fields) {
 }
 
 class System {
-  constructor() {
-    this.message = {};
-  }
   addNotification(message) {
     this.message = message;
   }
