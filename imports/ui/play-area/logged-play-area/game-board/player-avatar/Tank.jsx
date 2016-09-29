@@ -12,9 +12,7 @@ export default class Tank extends Component {
     };
   }
   componentDidMount() {
-    var node = ReactDOM.findDOMNode(this);
-    console.log(node)
-    TweenMax.to(node, 5, {x: 60});
+    TweenMax.to(this.refs.thisDiv, 5, {x: 60});
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
@@ -48,7 +46,9 @@ export default class Tank extends Component {
   }
   render() {
     return (
-      <div className={this.tankClass()}
+      <div
+        className={this.tankClass()}
+        ref="thisDiv"
         style={this.tankStyle()}>
       </div>
     );
