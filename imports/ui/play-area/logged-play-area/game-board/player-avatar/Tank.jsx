@@ -5,8 +5,8 @@ import {TweenMax} from 'gsap';
 import './Tank.scss';
 
 export default class Tank extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       prevRotation: null,
     };
