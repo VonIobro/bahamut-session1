@@ -1,5 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import {TweenMax} from 'gsap';
 import './Tank.scss';
 
 export default class Tank extends Component {
@@ -8,6 +10,11 @@ export default class Tank extends Component {
     this.state = {
       prevRotation: null,
     };
+  }
+  componentDidMount() {
+    var node = ReactDOM.findDOMNode(this);
+    console.log(node)
+    TweenMax.to(node, 5, {x: 60});
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
