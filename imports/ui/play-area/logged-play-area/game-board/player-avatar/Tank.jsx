@@ -12,7 +12,11 @@ export default class Tank extends Component {
     };
   }
   componentDidMount() {
-    TweenMax.to(this.refs.thisDiv, 5, {x: 60});
+    this.node = ReactDOM.findDOMNode(this);
+    this.animate();
+  }
+  componentDidUpdate() {
+    this.animate();
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
@@ -22,6 +26,13 @@ export default class Tank extends Component {
     if (nextRotation !== prevRotation) {
       this.setState({prevRotation});
     }
+  }
+  animate() {
+    const {player} = this.props;
+    TweenMax.to(this.node, 0, {
+      x: player.tank.position.x,
+      y: player.tank.position.y
+    });
   }
   tankClass() {
     const {player} = this.props;

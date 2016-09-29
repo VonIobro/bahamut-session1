@@ -10,14 +10,15 @@ class PlayerAvatar extends Component {
     // for general position
     const {players} = this.props;
     return players.map(player => {
-      const styles = {
-        position: 'absolute',
-        left: `${player.tank.position.x}px`,
-        top: `${player.tank.position.y}px`,
-      };
+      // const styles = {
+      //   position: 'absolute',
+      //   left: `${player.tank.position.x}px`,
+      //   top: `${player.tank.position.y}px`,
+      // };
       return (
-        <span key={player._id}
-          style={styles}>
+        <span
+          key={player._id}
+          ref={player._id}>
           <Tank player={player}/>
           <Weapon player={player}/>
         </span>
