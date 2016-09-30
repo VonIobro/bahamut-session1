@@ -15,7 +15,7 @@ export default class Tank extends Component {
   componentDidMount() {
     this.tl = new TimelineMax();
     this.node = ReactDOM.findDOMNode(this);
-    this.animate();
+    this.animInit();
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
@@ -25,6 +25,7 @@ export default class Tank extends Component {
     // only update state if props changed
     if (nextRotation !== prevRotation) {
       this.setState({prevRotation});
+      this.animRotate();
     }
     // compare location
     const nextLocation = nextProps.player.tank.position;
@@ -36,7 +37,7 @@ export default class Tank extends Component {
       }
     }
   }
-  animate() {
+  animInit() {
     const {player} = this.props;
     const posX = player.tank.position.x;
     const posY = player.tank.position.y;
@@ -55,6 +56,15 @@ export default class Tank extends Component {
       .to(this.node, 0.2, {x: toX, y: toY});
     }
   }
+  animRotate() {
+    const {player} = this.props;
+    const {prevRotation} = this.state;
+    // wait for state to be set...
+    if (prevRotation) {
+      const nextRotation = player.tank.rotation;
+      this.tl.to(this.node, 0.3, {css: {rotation: 90}})
+    }
+  }
   tankClass() {
     const {player} = this.props;
     // tank type (player or enemy)
@@ -71,8 +81,8 @@ export default class Tank extends Component {
     const {prevRotation} = this.state;
     let nextRotation = player.tank.rotation;
     let tankStyle = {
-      transform: `rotate(${nextRotation}deg)`,
-      animation: `tank${prevRotation}-${nextRotation} 0.6s linear 0s`,
+      // transform: `rotate(${nextRotation}deg)`,
+      // animation: `tank${prevRotation}-${nextRotation} 0.6s linear 0s`,
     };
     return tankStyle;
   }
