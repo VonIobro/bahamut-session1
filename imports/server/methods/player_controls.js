@@ -123,6 +123,7 @@ Meteor.methods({
     };
     const hitPlayers = Meteor.users.find(hitQuery, projection).fetch();
     // update all players with hits notification
+    // modify server system object
     Meteor.call('serverMessages.hitUpdate', hitPlayers);
 
     // update player with debug information

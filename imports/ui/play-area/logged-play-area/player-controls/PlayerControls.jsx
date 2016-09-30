@@ -48,6 +48,7 @@ export default class PlayerControls extends Component {
       rotation: user.tank.rotation,
       type: 'fire'
     };
+    /* TODO think about sercurity and make method calls simpler from client-side calls */
     Meteor.call('tank.fireWeapon', user._id, weapon);
   }
   handleFwdClick() {
