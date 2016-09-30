@@ -11,7 +11,7 @@ export default class Test extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="testarea">
         hello
         <Button>Clicky?</Button>
       </div>
