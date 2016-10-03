@@ -1,40 +1,6 @@
-@keyframes boom0 {
-  0% { opacity: 0; }
-  100% {
-    opacity: 1;
-    transform: translate3d(0,-60px,0);
-  }
-}
-@keyframes boom90 {
-  0% { opacity: 0; }
-  100% {
-    opacity: 1;
-    transform: translate3d(60px,0,0);
-  }
-}
-@keyframes boom180 {
-  0% { opacity: 0; }
-  100% {
-    opacity: 1;
-    transform: translate3d(0,60px,0);
-  }
-}
-@keyframes boom270 {
-  0% { opacity: 0; }
-  100% {
-    opacity: 1;
-    transform: translate3d(-60px,0,0);
-  }
-}
-
-.explosion-enter {
+.explosion {
   background-color: red;
   height: 20px;
   position: absolute;
   width: 20px;
-}
-// .explosion-enter.explosion-enter-active {}
-// .explosion-leave.explosion-leave-active {}
-.explosion-leave {
-  opacity: 0;
 }

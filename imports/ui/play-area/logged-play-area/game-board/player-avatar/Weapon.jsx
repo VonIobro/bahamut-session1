@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactDOM from 'react-dom';
+import {TimelineMax, TweenLite} from 'gsap';
 import './Weapon.scss';
 
 export default class Weapon extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      shouldFireWeapon: false,
-    };
+    this.state = {};
+  }
+  componentDidMount() {
+    this.animInit();
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
@@ -16,38 +18,31 @@ export default class Weapon extends Component {
       const prevCount = player.tank.weapon.count;
       // only update state if props changed
       if (nextCount > prevCount) {
-        this.setState({shouldFireWeapon: true});
-      } else {
-        this.setState({shouldFireWeapon: false});
+        this.animFire(player.tank.position, player.tank.rotation);
       }
     }
   }
-  weaponClass() {
-    const {player} = this.props;
-    // weapon type
-    let weaponClass = 'explosion';
-    return weaponClass;
+  animInit() {
+    this.tl = new TimelineMax();
+    this.node = ReactDOM.findDOMNode(this);
+    TweenLite.to(this.node, 0, {opacity: 0});
   }
-  renderWeapon() {
-    const {player} = this.props;
-    const {shouldFireWeapon} = this.state;
-    const rotation = player.tank.rotation;
-    const style = {
-      animation: `boom${rotation} 1s ease-in`,
-    };
-    if (shouldFireWeapon === true) {
-      return <span style={style}></span>;
-    }
+  animFire(pos, rotation) {
+    /*
+      TODO Dup an object, w/o changing the original object
+      let endPos = pos; // this doesn't work
+    */
+    let endPos = {x: pos.x, y: pos.y};
+    if (rotation === 0) {endPos.y -= 60;}
+    if (rotation === 90) {endPos.x += 60;}
+    if (rotation === 180) {endPos.y += 60;}
+    if (rotation === 270) {endPos.x -= 60;}
+    this.tl.to(this.node, 0, {opacity: 0, x: pos.x, y: pos.y})
+      .to(this.node, 0.8, { opacity: 1, x: endPos.x, y: endPos.y})
+      .to(this.node, 0.1, {opacity: 0});
   }
   render() {
-    return (
-      <ReactCSSTransitionGroup
-        transitionName={this.weaponClass()}
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={500}>
-        {this.renderWeapon()}
-      </ReactCSSTransitionGroup>
-    );
+    return <span className="explosion"></span>;
   }
 }
 
