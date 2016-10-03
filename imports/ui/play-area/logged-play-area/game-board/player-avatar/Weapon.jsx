@@ -4,10 +4,6 @@ import {TimelineMax, TweenLite} from 'gsap';
 import './Weapon.scss';
 
 export default class Weapon extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   componentDidMount() {
     this.animInit();
   }
