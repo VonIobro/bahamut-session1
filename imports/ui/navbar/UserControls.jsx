@@ -16,9 +16,7 @@ export default class UserControls extends Component {
     });
   }
   handleToggleDebug() {
-    const {user} = this.props;
-    const curDebugState = user.debugMode;
-    Meteor.call('debugMode', user._id, !curDebugState);
+    Meteor.call('debugMode');
   }
   render() {
     const {user} = this.props;

@@ -1,13 +1,11 @@
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
 
 Meteor.methods({
-  'debugMode'(userId, val) {
-    check(userId, String);
-    check(val, Boolean);
+  'debugMode'() {
+    const debugState = Meteor.user().debugMode;
     Meteor.users.update(
-      {_id: userId},
-      {$set: {debugMode: val}}
+      {_id: Meteor.userId()},
+      {$set: {debugMode: !debugState}}
     );
   },
   'tank.moveFwd'() {
