@@ -34,20 +34,19 @@ export default class Tank extends Component {
     TweenLite.to(this.node, 0, {x: posX, y: posY, rotation});
   }
   animMove(pos, nextRot, prevRot) {
-    TweenLite.to(this.node, 0.2, {x: pos.x, y: pos.y});
     // custom rotation rules
     if (prevRot === 270 && nextRot === 0) {
       this.tl.to(this.node, 0, {rotation: prevRot})
-        .to(this.node, 0.5, {rotation: 360});
+        .to(this.node, 0.3, {x: pos.x, y: pos.y, rotation: 360});
       return;
     }
     if (prevRot === 0 && nextRot === 270) {
       this.tl.to(this.node, 0, {rotation: 360})
-        .to(this.node, 0.5, {rotation: nextRot});
+        .to(this.node, 0.3, {x: pos.x, y: pos.y, rotation: nextRot});
       return;
     }
     this.tl.to(this.node, 0, {rotation: prevRot})
-      .to(this.node, 0.5, {rotation: nextRot});
+      .to(this.node, 0.3, {x: pos.x, y: pos.y, rotation: nextRot});
   }
   tankClass() {
     const {player} = this.props;
