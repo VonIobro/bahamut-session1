@@ -27,10 +27,6 @@ class PlayerAvatar extends Component {
   }
 }
 
-PlayerAvatar.propTypes = {
-  user: React.PropTypes.object,
-};
-
 export default composeWithTracker((props, onData) => {
   const subscription = Meteor.subscribe('users.tanks');
   if (subscription.ready()) {
