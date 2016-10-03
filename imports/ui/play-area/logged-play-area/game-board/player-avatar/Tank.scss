@@ -1,36 +1,3 @@
-@keyframes tank0-90 {
-  0% {transform: rotate(0deg);}
-  100% {transform: rotate(90deg);}
-}
-@keyframes tank90-180 {
-  0% {transform: rotate(90deg);}
-  100% {transform: rotate(180deg);}
-}
-@keyframes tank180-270 {
-  0% {transform: rotate(180deg);}
-  100% {transform: rotate(270deg);}
-}
-@keyframes tank270-0 {
-  0% {transform: rotate(270deg);}
-  100% {transform: rotate(360deg);}
-}
-@keyframes tank0-270 {
-  0% {transform: rotate(360deg);}
-  100% {transform: rotate(270deg);}
-}
-@keyframes tank270-180 {
-  0% {transform: rotate(270deg);}
-  100% {transform: rotate(180deg);}
-}
-@keyframes tank180-90 {
-  0% {transform: rotate(180deg);}
-  100% {transform: rotate(90deg);}
-}
-@keyframes tank90-0 {
-  0% {transform: rotate(90deg);}
-  100% {transform: rotate(0deg);}
-}
-
 .tank {
   position: absolute;
   border-left: 10px solid transparent;
