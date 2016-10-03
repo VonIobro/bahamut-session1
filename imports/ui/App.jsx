@@ -4,7 +4,6 @@ import {composeWithTracker} from 'react-komposer';
 import {Row} from 'react-bootstrap';
 import NavbarMain from './navbar/NavbarMain';
 import PlayArea from './play-area/PlayArea';
-import Test from './test-area/test';
 
 class App extends Component {
   render() {
@@ -13,9 +12,6 @@ class App extends Component {
       <div>
         <Row>
           <NavbarMain user={user}/>
-        </Row>
-        <Row>
-          <Test/>
         </Row>
         <Row>
           <PlayArea user={user}/>
