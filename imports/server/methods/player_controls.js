@@ -31,9 +31,20 @@ Meteor.methods({
       }}
     );
   },
-  'tank.moveBack'(userId, rotation) {
-    check(userId, String);
-    check(rotation, Number);
+  'tank.moveBack'() {
+    // ignore if beyond bounds
+    const pos = Meteor.user().tank.position;
+    if (pos.x <= 0 || pos.x >= 580) {
+      console.log('out of bounds');
+      return;
+    }
+    if (pos.y <= 0 || pos.y >= 430) {
+      console.log('out of bounds');
+      return;
+    }
+
+    // calc trajectory based on rotation
+    const rotation = Meteor.user().tank.rotation;
     let translation = [];
     if (rotation === 0) {
       translation = [ 0, 10 ];
@@ -45,7 +56,7 @@ Meteor.methods({
       translation = [ 10, 0 ];
     }
     Meteor.users.update(
-      {_id: userId},
+      {_id: Meteor.userId()},
       {$inc: {
         'tank.position.x': translation[0],
         'tank.position.y': translation[1],

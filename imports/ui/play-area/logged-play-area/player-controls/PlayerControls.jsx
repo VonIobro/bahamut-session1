@@ -29,7 +29,7 @@ export default class PlayerControls extends Component {
     if (rot === 270 && posX >= 580) {
       return console.log('right!');
     }
-    Meteor.call('tank.moveBack', user._id, rot);
+    Meteor.call('tank.moveBack');
   }
   handleFireClick() {
 /* TODO When user clicks fire:
