@@ -1,15 +1,35 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactDOM from 'react-dom';
+import {TweenMax} from 'gsap';
 import {Alert} from 'react-bootstrap';
 import './Notify.scss';
 
 class NotifyMessage extends Component {
+  constructor() {
+    super();
+    this.handleClose = this.handleClose.bind(this);
+  }
   componentDidMount() {
     this.setTimer();
+    this.node = ReactDOM.findDOMNode(this);
+    // animEnter
+    TweenMax.from(this.node, 0.3, {opacity: 0, scale: 0});
+  }
+  componentWillUnmount() {
+    clearTimeout(this._timer);
+  }
+  handleClose() {
+    const {message, onHandleClose} = this.props;
+    // animLeave
+    TweenMax.to(this.node, 0.1, {
+      opacity: 0, scale: 0,
+      onComplete: onHandleClose,
+      onCompleteParams: [ message._id ]
+    });
   }
   setTimer() {
-    const {message, onHandleClose} = this.props;
+    const {message} = this.props;
     // dont add a timer, keep notification open until dismissed
     if (!message.delay) {
       return;
@@ -18,27 +38,24 @@ class NotifyMessage extends Component {
     this._timer != null ? clearTimeout(this._timer) : null;
     // hide after 'delay' miliseconds
     this._timer = setTimeout(() => {
-      onHandleClose(message._id);
+      this.handleClose();
       this._timer = null;
     }, message.delay);
   }
-  componentWillUnmount() {
-    clearTimeout(this._timer);
-  }
   render() {
-    const {message, onHandleClose} = this.props;
+    const {message} = this.props;
     return (
       <Alert bsStyle={message.style ? message.style : 'warning'}>
         {message.text}
-        <a href="#" onClick={() => onHandleClose(message._id)}> &times;</a>
+        <a href="#" onClick={() => this.handleClose()}> &times;</a>
       </Alert>
     );
   }
 }
 
 export default class Notify extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       curMessages: [],
     };
@@ -81,12 +98,7 @@ export default class Notify extends Component {
   render() {
     return (
       <span id="notifications">
-        <ReactCSSTransitionGroup
-          transitionName="note"
-          transitionEnterTimeout={200}
-          transitionLeaveTimeout={200}>
-          {this.alertNodes()}
-        </ReactCSSTransitionGroup>
+        {this.alertNodes()}
       </span>
     );
   }
