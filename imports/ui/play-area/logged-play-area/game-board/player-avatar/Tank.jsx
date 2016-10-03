@@ -6,10 +6,6 @@ import {TimelineMax, TweenLite} from 'gsap';
 import './Tank.scss';
 
 export default class Tank extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
   componentDidMount() {
     this.animInit();
   }
@@ -28,10 +24,9 @@ export default class Tank extends Component {
     this.tl = new TimelineMax();
     this.node = ReactDOM.findDOMNode(this);
     const {player} = this.props;
-    const posX = player.tank.position.x;
-    const posY = player.tank.position.y;
+    const pos = player.tank.position;
     const rotation = player.tank.rotation;
-    TweenLite.to(this.node, 0, {x: posX, y: posY, rotation});
+    TweenLite.to(this.node, 0, {x: pos.x, y: pos.y, rotation});
   }
   animMove(pos, nextRot, prevRot) {
     // custom rotation rules
