@@ -20,14 +20,7 @@ export default class PlayerControls extends Component {
     });
   }
   handleFireClick() {
-    const {user} = this.props;
-    let weapon = {
-      position: user.tank.position,
-      rotation: user.tank.rotation,
-      type: 'fire'
-    };
-    /* TODO think about sercurity and make method calls simpler from client-side calls */
-    Meteor.call('tank.fireWeapon', user._id, weapon);
+    Meteor.call('tank.fireWeapon');
   }
   handleFwdClick() {
     Meteor.call('tank.moveFwd', (err) => {

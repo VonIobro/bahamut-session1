@@ -138,27 +138,25 @@ Meteor.methods({
       {$inc: {'tank.rotation': rotate}}
     );
   },
-  'tank.fireWeapon'(userId, weapon) {
-    check(userId, String);
-    check(weapon, Object);
-
+  'tank.fireWeapon'() {
     // determine affected area of weapon
-    const weaponY = weapon.position.y;
-    const weaponX = weapon.position.x;
-    let areaX = [ weaponX - 10, weaponX + 10 ];
-    let areaY = [ weaponY - 10, weaponY + 10 ];
+    const posY = Meteor.user().tank.position.y;
+    const posX = Meteor.user().tank.position.x;
+    const rot = Meteor.user().tank.rotation;
+    let areaX = [ posX - 10, posX + 10 ];
+    let areaY = [ posY - 10, posY + 10 ];
     const range = 60;
-    if (weapon.rotation === 0) {
-      areaY = [ weaponY - range, weaponY ];
+    if (rot === 0) {
+      areaY = [ posY - range, posY ];
     }
-    if (weapon.rotation === 90) {
-      areaX = [ weaponX, weaponX + range ];
+    if (rot === 90) {
+      areaX = [ posX, posX + range ];
     }
-    if (weapon.rotation === 180) {
-      areaY = [ weaponY, weaponY + range ];
+    if (rot === 180) {
+      areaY = [ posY, posY + range ];
     }
-    if (weapon.rotation === 270) {
-      areaX = [ weaponX - range, weaponX ];
+    if (rot === 270) {
+      areaX = [ posX - range, posX ];
     }
 
     // update hit enemies by $inc -1 their tank health
@@ -188,13 +186,13 @@ Meteor.methods({
 
     // update player with debug information
     Meteor.users.update(
-      {_id: userId},
+      {_id: Meteor.userId()},
       {
         $inc: {'tank.weapon.count': 1},
         $set: {
           'tank.weapon.area': `x${areaX}, y${areaY}`,
-          'tank.weapon.position': weapon.position,
-          'tank.weapon.rotation': weapon.rotation
+          'tank.weapon.position': {x: posX, y: posY},
+          'tank.weapon.rotation': rot
         }
       }
     );
