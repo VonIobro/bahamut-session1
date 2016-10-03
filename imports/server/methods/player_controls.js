@@ -10,21 +10,52 @@ Meteor.methods({
       {$set: {debugMode: val}}
     );
   },
-  'tank.moveFwd'(userId, rotation) {
-    check(userId, String);
-    check(rotation, Number);
+  'tank.moveFwd'() {
+    const pos = Meteor.user().tank.position;
+    const rot = Meteor.user().tank.rotation;
+    // ignore if beyond bounds
+    if (rot === 0 && pos.y <= 0) {
+      throw new Meteor.Error(
+        'tank.moveFwd',
+        'top!',
+        'out of bounds'
+      );
+    }
+    if (rot === 90 && pos.x >= 580) {
+      throw new Meteor.Error(
+        'tank.moveFwd',
+        'right!',
+        'out of bounds'
+      );
+    }
+    if (rot === 180 && pos.y >= 430) {
+      throw new Meteor.Error(
+        'tank.moveFwd',
+        'bottom!',
+        'out of bounds'
+      );
+    }
+    if (rot === 270 && pos.x <= 0) {
+      throw new Meteor.Error(
+        'tank.moveFwd',
+        'left!',
+        'out of bounds'
+      );
+    }
+
+    // calc trajectory based on rotation
     let translation = [];
-    if (rotation === 0) {
+    if (rot === 0) {
       translation = [ 0, -10 ];
-    } else if (rotation === 90) {
+    } else if (rot === 90) {
       translation = [ 10, 0 ];
-    } else if (rotation === 180) {
+    } else if (rot === 180) {
       translation = [ 0, 10 ];
     } else {
       translation = [ -10, 0 ];
     }
     Meteor.users.update(
-      {_id: userId},
+      {_id: Meteor.userId()},
       {$inc: {
         'tank.position.x': translation[0],
         'tank.position.y': translation[1],
@@ -32,25 +63,45 @@ Meteor.methods({
     );
   },
   'tank.moveBack'() {
-    // ignore if beyond bounds
     const pos = Meteor.user().tank.position;
-    if (pos.x <= 0 || pos.x >= 580) {
-      console.log('out of bounds');
-      return;
+    const rot = Meteor.user().tank.rotation;
+    // ignore if beyond bounds
+    if (rot === 0 && pos.y >= 430) {
+      throw new Meteor.Error(
+        'tank.moveBack',
+        'bottom!',
+        'out of bounds'
+      );
     }
-    if (pos.y <= 0 || pos.y >= 430) {
-      console.log('out of bounds');
-      return;
+    if (rot === 90 && pos.x <= 0) {
+      throw new Meteor.Error(
+        'tank.moveBack',
+        'left!',
+        'out of bounds'
+      );
+    }
+    if (rot === 180 && pos.y <= 0) {
+      throw new Meteor.Error(
+        'tank.moveBack',
+        'top!',
+        'out of bounds'
+      );
+    }
+    if (rot === 270 && pos.x >= 580) {
+      throw new Meteor.Error(
+        'tank.moveBack',
+        'right!',
+        'out of bounds'
+      );
     }
 
     // calc trajectory based on rotation
-    const rotation = Meteor.user().tank.rotation;
     let translation = [];
-    if (rotation === 0) {
+    if (rot === 0) {
       translation = [ 0, 10 ];
-    } else if (rotation === 90) {
+    } else if (rot === 90) {
       translation = [ -10, 0 ];
-    } else if (rotation === 180) {
+    } else if (rot === 180) {
       translation = [ 0, -10 ];
     } else {
       translation = [ 10, 0 ];
@@ -63,29 +114,27 @@ Meteor.methods({
       }}
     );
   },
-  'tank.rotateLeft'(userId, prevRotation) {
-    check(userId, String);
-    check(prevRotation, Number);
+  'tank.rotateLeft'() {
+    const prevRotation = Meteor.user().tank.rotation;
     let rotate = -90;
     // when rotating past zero
     if (prevRotation === 0) {
       rotate = 270;
     }
     return Meteor.users.update(
-      {_id: userId},
+      {_id: Meteor.userId()},
       {$inc: {'tank.rotation': rotate}}
     );
   },
-  'tank.rotateRight'(userId, prevRotation) {
-    check(userId, String);
-    check(prevRotation, Number);
+  'tank.rotateRight'() {
+    const prevRotation = Meteor.user().tank.rotation;
     let rotate = 90;
     // when rotating past zero
     if (prevRotation === 270) {
       rotate = -270;
     }
     return Meteor.users.update(
-      {_id: userId},
+      {_id: Meteor.userId()},
       {$inc: {'tank.rotation': rotate}}
     );
   },

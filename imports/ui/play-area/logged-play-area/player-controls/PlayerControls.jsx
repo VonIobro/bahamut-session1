@@ -13,35 +13,13 @@ export default class PlayerControls extends Component {
     this.handleRightClick = this.handleRightClick.bind(this);
   }
   handleBackClick() {
-    const {user} = this.props;
-    const rot = user.tank.rotation;
-    const posX = user.tank.position.x;
-    const posY = user.tank.position.y;
-    if (rot === 0 && posY >= 430) {
-      return console.log('bottom!');
-    }
-    if (rot === 90 && posX <= 0) {
-      return console.log('left!');
-    }
-    if (rot === 180 && posY <= 0) {
-      return console.log('top!');
-    }
-    if (rot === 270 && posX >= 580) {
-      return console.log('right!');
-    }
-    Meteor.call('tank.moveBack');
+    Meteor.call('tank.moveBack', (err) => {
+      if (err && err.reason) {
+        console.log(err.reason);
+      }
+    });
   }
   handleFireClick() {
-/* TODO When user clicks fire:
-  RESULT: shoot fireball from tank, tanks in the vicinity of the fireball lose one health point.
-  ACTIONS:
-    u1. player1_SCREEN, user clicks fire button
-    s1a. PlayerControl_COMPONENT, based on direction (rotation) and position calculate positions affected by fire
-    s1b. METEOR.CALL, update player1 with firing status
-    s1c. METEOR.CALL, search for players that match those positions and update their health
-    u2a. enemy_SCREEN, user sees damage, health points update
-    u2b. player1_SCREEN, sees damage to enemy tank
-*/
     const {user} = this.props;
     let weapon = {
       position: user.tank.position,
@@ -52,31 +30,17 @@ export default class PlayerControls extends Component {
     Meteor.call('tank.fireWeapon', user._id, weapon);
   }
   handleFwdClick() {
-    const {user} = this.props;
-    const rot = user.tank.rotation;
-    const posX = user.tank.position.x;
-    const posY = user.tank.position.y;
-    if (rot === 0 && posY <= 0) {
-      return console.log('top!');
-    }
-    if (rot === 90 && posX >= 580) {
-      return console.log('right!');
-    }
-    if (rot === 180 && posY >= 430) {
-      return console.log('bottom!');
-    }
-    if (rot === 270 && posX <= 0) {
-      return console.log('left!');
-    }
-    Meteor.call('tank.moveFwd', user._id, rot);
+    Meteor.call('tank.moveFwd', (err) => {
+      if (err && err.reason) {
+        console.log(err.reason);
+      }
+    });
   }
   handleLeftClick() {
-    const {user} = this.props;
-    Meteor.call('tank.rotateLeft', user._id, user.tank.rotation);
+    Meteor.call('tank.rotateLeft');
   }
   handleRightClick() {
-    const {user} = this.props;
-    Meteor.call('tank.rotateRight', user._id, user.tank.rotation);
+    Meteor.call('tank.rotateRight');
   }
   render() {
     const {user} = this.props;
