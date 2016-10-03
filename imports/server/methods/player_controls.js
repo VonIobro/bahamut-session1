@@ -137,7 +137,7 @@ Meteor.methods({
     );
   },
   'tank.fireWeapon'() {
-    // determine affected area of weapon
+    // determine area of weapon effect
     const posY = Meteor.user().tank.position.y;
     const posX = Meteor.user().tank.position.x;
     const rot = Meteor.user().tank.rotation;
@@ -186,11 +186,11 @@ Meteor.methods({
     Meteor.users.update(
       {_id: Meteor.userId()},
       {
-        $inc: {'tank.weapon.count': 1},
+        $inc: {'weapon.count': 1},
         $set: {
-          'tank.weapon.area': `x${areaX}, y${areaY}`,
-          'tank.weapon.position': {x: posX, y: posY},
-          'tank.weapon.rotation': rot
+          'weapon.area': `x${areaX}, y${areaY}`,
+          'weapon.position': {x: posX, y: posY},
+          'weapon.rotation': rot
         }
       }
     );

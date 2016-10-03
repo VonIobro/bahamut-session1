@@ -9,9 +9,9 @@ export default class Weapon extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const {player} = this.props;
-    if (nextProps.player.tank.weapon) {
-      const nextCount = nextProps.player.tank.weapon.count;
-      const prevCount = player.tank.weapon.count;
+    if (nextProps.player.weapon) {
+      const nextCount = nextProps.player.weapon.count;
+      const prevCount = player.weapon.count;
       // only update state if props changed
       if (nextCount > prevCount) {
         this.animFire(player.tank.position, player.tank.rotation);

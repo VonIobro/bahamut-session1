@@ -33,13 +33,13 @@ Accounts.onCreateUser((option, user) => {
   user.tank = {
     health: 3,
     position: {x: randomX(), y: randomY()},
-    weapon: {
-      area: 0,
-      count: 0,
-      position: {x: 0, y: 0},
-      rotation: 0,
-    },
-    rotation: randomRotation(),
+    rotation: randomRotation()
+  };
+  user.weapon = {
+    area: 0,
+    count: 0,
+    position: {x: 0, y: 0},
+    rotation: 0,
   };
   return user;
 });

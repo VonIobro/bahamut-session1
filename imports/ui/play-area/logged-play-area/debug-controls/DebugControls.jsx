@@ -26,7 +26,7 @@ class Debug extends Component {
   }
   renderWeapon() {
     const {user} = this.props;
-    const weapon = user.tank.weapon;
+    const weapon = user.weapon;
     if (weapon) {
       return (
         <span>
