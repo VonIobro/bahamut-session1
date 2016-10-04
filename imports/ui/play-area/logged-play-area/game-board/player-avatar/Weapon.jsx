@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {TimelineMax, TweenLite} from 'gsap';
+import {TimelineMax} from 'gsap';
 import './Weapon.scss';
 
 export default class Weapon extends Component {
@@ -14,28 +14,19 @@ export default class Weapon extends Component {
       const prevCount = player.weapon.count;
       // only update state if props changed
       if (nextCount > prevCount) {
-        this.animFire(player.tank.position, player.tank.rotation);
+        this.animFire();
       }
     }
   }
   animInit() {
     this.tl = new TimelineMax();
     this.node = ReactDOM.findDOMNode(this);
-    TweenLite.to(this.node, 0, {opacity: 0});
+    this.tl.to(this.node, 0, {opacity: 0, left: -10});
   }
-  animFire(pos, rotation) {
-    /*
-      TODO Dup an object, w/o changing the original object
-      let endPos = pos; // this doesn't work
-    */
-    let endPos = {x: pos.x, y: pos.y};
-    if (rotation === 0) {endPos.y -= 60;}
-    if (rotation === 90) {endPos.x += 60;}
-    if (rotation === 180) {endPos.y += 60;}
-    if (rotation === 270) {endPos.x -= 60;}
-    this.tl.to(this.node, 0, {opacity: 0, x: pos.x, y: pos.y})
-      .to(this.node, 0.8, { opacity: 1, x: endPos.x, y: endPos.y})
-      .to(this.node, 0.1, {opacity: 0});
+  animFire() {
+    this.tl.to(this.node, 0.7, {opacity: 1, top: -60, rotation: 180, scale: 1.2})
+      .to(this.node, 0.3, {opacity: 0, scale: 0.5, rotation: 90})
+      .to(this.node, 0, {top: 0, rotation: 0});
   }
   render() {
     return <span className="explosion"></span>;

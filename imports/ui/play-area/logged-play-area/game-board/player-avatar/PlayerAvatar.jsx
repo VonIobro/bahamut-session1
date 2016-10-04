@@ -2,7 +2,6 @@ import {Meteor} from 'meteor/meteor';
 import React, {Component} from 'react';
 import {composeWithTracker} from 'react-komposer';
 import Tank from './Tank';
-import Weapon from './Weapon';
 import './PlayerAvatar.scss';
 
 class PlayerAvatar extends Component {
@@ -13,7 +12,6 @@ class PlayerAvatar extends Component {
       return (
         <span key={player._id}>
           <Tank player={player}/>
-          <Weapon player={player}/>
         </span>
       );
     });

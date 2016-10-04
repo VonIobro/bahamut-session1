@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import {TimelineMax, TweenLite} from 'gsap';
+import Weapon from './Weapon';
 import './Tank.scss';
 
 export default class Tank extends Component {
@@ -55,8 +56,11 @@ export default class Tank extends Component {
     return tankClass;
   }
   render() {
+    const {player} = this.props;
     return (
-      <div className={this.tankClass()}></div>
+      <span className={this.tankClass()}>
+        <Weapon player={player}/>
+      </span>
     );
   }
 }
