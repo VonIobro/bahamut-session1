@@ -16,8 +16,7 @@ export default class LoginForm extends Component {
   handleInputChange(event) {
     this.setState({username: event.target.value});
   }
-  handleStartClick(event) {
-    event.preventDefault();
+  handleStartClick() {
     const {username} = this.state;
     Accounts.createUser({username, password: 'password'}, (err) => {
       if (err && err.reason) {
